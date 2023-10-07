@@ -31,7 +31,7 @@ public class User {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Length(min=3)
+    @Length(min=8)
     @Column(name="password")
     private String password;
 
