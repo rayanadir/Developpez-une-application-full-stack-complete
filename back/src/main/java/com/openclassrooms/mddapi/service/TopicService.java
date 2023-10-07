@@ -8,7 +8,7 @@ import com.openclassrooms.mddapi.model.Topic;
 import com.openclassrooms.mddapi.repository.TopicRepository;
 
 @Service
-public class TopicService implements ITopicService {
+public class TopicService {
 
 	private TopicRepository topicRepository;
 	
@@ -16,9 +16,13 @@ public class TopicService implements ITopicService {
 		this.topicRepository = topicRepository;
 	}
 
-	@Override
-	public List<Topic> getTopics() {
-		return topicRepository.findAll();
+
+	public List<Topic> findAllTopics() {
+		return this.topicRepository.findAll();
+	}
+
+	public Topic findTopicById(Long id){
+		return this.topicRepository.findById(id).orElse(null);
 	}
 	
 }
