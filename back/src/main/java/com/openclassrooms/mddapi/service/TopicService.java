@@ -24,5 +24,7 @@ public class TopicService {
 	public Topic findTopicById(Long id){
 		return this.topicRepository.findById(id).orElse(null);
 	}
+
+	public Topic createTopic(Topic topic) { return this.topicRepository.save(topic); }
 	
 }
