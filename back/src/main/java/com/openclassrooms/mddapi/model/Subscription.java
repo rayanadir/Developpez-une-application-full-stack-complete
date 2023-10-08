@@ -14,6 +14,11 @@ public class Subscription {
 
     private Topic topic;
 
+    public Subscription(Topic topic, User user){
+        this.topic = topic;
+        this.user = user;
+    }
+
     public Long getId() {
         return id;
     }
