@@ -3,6 +3,7 @@ package com.openclassrooms.mddapi.controller;
 import com.openclassrooms.mddapi.dto.PostDTO;
 import com.openclassrooms.mddapi.mapper.PostMapper;
 import com.openclassrooms.mddapi.model.Post;
+import com.openclassrooms.mddapi.model.Subscription;
 import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.service.PostService;
 import com.openclassrooms.mddapi.service.SubscriptionService;
@@ -11,6 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/post")
@@ -49,4 +54,33 @@ public class PostController {
         return ResponseEntity.ok().body(this.postMapper.toDTO(post));
     }
 
+    @GetMapping("/feed")
+    public ResponseEntity<?> findUserSubscriptions(){
+        try{
+            // Get user info
+            String email = SecurityContextHolder.getContext().getAuthentication().getName();
+            User user = this.userService.findByEmail(email);
+
+            // Get all user subscriptions
+            Optional<List<Subscription>> subscriptions = this.subscriptionService.findByUser(user);
+
+            if(subscriptions.isEmpty())
+                return ResponseEntity.ok().build();
+
+            List<PostDTO> list = new ArrayList<>();
+
+            // Get user feed
+            for(Subscription subscription: subscriptions.get()){
+                Optional<List<Post>> posts = this.postService.findByTopic(subscription.getTopic());
+                if(posts.isPresent()){
+                    for (Post post : posts.get()){
+                        list.add(this.postMapper.toDTO(post));
+                    }
+                }
+            }
+            return ResponseEntity.ok().body(list);
+        }catch (NumberFormatException e){
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }
