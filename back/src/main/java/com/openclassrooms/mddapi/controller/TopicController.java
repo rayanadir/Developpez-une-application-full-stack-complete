@@ -9,6 +9,7 @@ import com.openclassrooms.mddapi.service.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,8 +29,8 @@ public class TopicController {
 		this.topicService = topicService;		
 	}
 
-	@GetMapping
-	public ResponseEntity<?> getTopics() {
+	@GetMapping()
+	public ResponseEntity<?> findAll() {
 		try{
 			List<Topic> topics = topicService.findAllTopics();
 			if(topics.isEmpty())
@@ -43,6 +44,17 @@ public class TopicController {
 			return ResponseEntity.badRequest().build();
 		}
 	}
-	
+
+	@GetMapping("/{id}")
+	public ResponseEntity<?> findById(@PathVariable("id") String id){
+		try{
+			Topic topic = this.topicService.findTopicById(Long.valueOf(id));
+			if(topic==null)
+				return ResponseEntity.notFound().build();
+			return ResponseEntity.ok().body(this.topicMapper.toDto(topic));
+		}catch (NumberFormatException e){
+			return ResponseEntity.badRequest().build();
+		}
+	}
 	
 }
