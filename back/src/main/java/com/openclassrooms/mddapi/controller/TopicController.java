@@ -8,10 +8,7 @@ import com.openclassrooms.mddapi.mapper.TopicMapper;
 import com.openclassrooms.mddapi.service.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.openclassrooms.mddapi.model.Topic;
 
@@ -55,6 +52,12 @@ public class TopicController {
 		}catch (NumberFormatException e){
 			return ResponseEntity.badRequest().build();
 		}
+	}
+
+	@PostMapping()
+	public ResponseEntity<?> create(@RequestBody TopicDTO topicDTO){
+		Topic topic = this.topicService.createTopic(this.topicMapper.toEntity(topicDTO));
+		return ResponseEntity.ok().body(this.topicMapper.toDto(topic));
 	}
 	
 }
