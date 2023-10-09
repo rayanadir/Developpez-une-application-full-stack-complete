@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-@Builder
 @Table(name= "users")
 public class User {
 

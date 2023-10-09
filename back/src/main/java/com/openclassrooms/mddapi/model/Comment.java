@@ -17,12 +17,12 @@ public class Comment {
 
 	@ManyToOne
 	@NonNull
-	@Column(name="post_id")
+	@JoinColumn(name="post_id")
 	private Post post;
 
 	@ManyToOne
 	@NonNull
-	@Column(name= "user_id")
+	@JoinColumn(name= "user_id")
 	private User user;
 
 	@NonNull

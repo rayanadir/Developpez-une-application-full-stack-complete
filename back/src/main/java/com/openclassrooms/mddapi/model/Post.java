@@ -29,7 +29,7 @@ public class Post {
 
 	@NonNull
 	@ManyToOne
-	@Column(name="user_id")
+	@JoinColumn(name="user_id")
 	private User author;
 
 	@NonNull

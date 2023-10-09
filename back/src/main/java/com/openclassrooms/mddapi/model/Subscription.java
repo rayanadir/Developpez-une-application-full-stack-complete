@@ -14,12 +14,12 @@ public class Subscription {
 
     @NonNull
     @OneToOne
-    @Column(name="user_id")
+    @JoinColumn(name="user_id")
     private User user;
 
     @NonNull
     @OneToOne
-    @Column(name="topic_id")
+    @JoinColumn(name="topic_id")
     private Topic topic;
 
     public Subscription(Topic topic, User user){
