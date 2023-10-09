@@ -2,9 +2,9 @@ package com.openclassrooms.mddapi.model;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.NonNull;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.lang.NonNull;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -22,6 +22,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NonNull
     @Length(min=3)
     @Column(name="username")
     private String username;
@@ -31,6 +32,7 @@ public class User {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
+    @NonNull
     @Length(min=8)
     @Column(name="password")
     private String password;

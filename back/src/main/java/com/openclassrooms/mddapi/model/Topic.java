@@ -1,5 +1,7 @@
 package com.openclassrooms.mddapi.model;
 
+import lombok.NonNull;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,10 +17,12 @@ public class Topic {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
-	
-	@Column(nullable = false)
+
+	@NonNull
+	@Column(name="name",nullable = false)
 	private String name;
 
+	@NonNull
 	@Column(name="description")
 	private String description;
 

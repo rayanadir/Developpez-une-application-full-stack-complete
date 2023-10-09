@@ -1,5 +1,7 @@
 package com.openclassrooms.mddapi.model;
 
+import lombok.NonNull;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,8 +12,14 @@ public class Subscription {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NonNull
+    @OneToOne
+    @Column(name="user_id")
     private User user;
 
+    @NonNull
+    @OneToOne
+    @Column(name="topic_id")
     private Topic topic;
 
     public Subscription(Topic topic, User user){

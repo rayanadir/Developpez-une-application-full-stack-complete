@@ -1,5 +1,6 @@
 package com.openclassrooms.mddapi.model;
 
+import lombok.NonNull;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -20,17 +21,22 @@ public class Post {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
+	@NonNull
 	@ManyToOne
 	@JoinColumn(name = "topic_id")
 	private Topic topic;
 
+	@NonNull
+	@ManyToOne
 	@Column(name="user_id")
 	private User author;
 
+	@NonNull
 	@Column(name="title")
 	private String title;
 
+	@NonNull
 	@Column(name="content")
 	private String content;
 
