@@ -2,6 +2,7 @@ package com.openclassrooms.mddapi.service;
 
 import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.repository.UserRepository;
+import com.openclassrooms.mddapi.security.services.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,21 +10,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService {
 
     @Autowired
     private UserRepository userRepository;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(username);
-        if(user==null)
-            throw new UsernameNotFoundException("User doesn't exist by this name");
-        return (UserDetails) user;
-    }
 
     public User findByEmail(String email){
-        return userRepository.findByEmail(email);
+        return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Email not found : " + email));
     }
 
     public User findById(Long id){
@@ -33,4 +27,5 @@ public class UserService implements UserDetailsService {
     public User createUser(User user){
         return userRepository.save(user);
     }
+
 }
