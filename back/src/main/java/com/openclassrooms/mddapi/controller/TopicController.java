@@ -19,7 +19,6 @@ public class TopicController {
 	@Autowired
 	private TopicService topicService;
 
-	@Autowired
 	private TopicMapper topicMapper;
 
 	public TopicController(TopicService topicService) {

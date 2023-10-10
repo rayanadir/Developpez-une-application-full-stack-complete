@@ -30,7 +30,6 @@ public class SubscriptionController {
     @Autowired
     private TopicService topicService;
 
-    @Autowired
     private TopicMapper topicMapper;
 
     /**

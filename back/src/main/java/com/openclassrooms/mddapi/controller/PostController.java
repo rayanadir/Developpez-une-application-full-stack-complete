@@ -30,7 +30,6 @@ public class PostController {
     @Autowired
     private SubscriptionService subscriptionService;
 
-    @Autowired
     private PostMapper postMapper;
 
     @GetMapping("/{id}")
