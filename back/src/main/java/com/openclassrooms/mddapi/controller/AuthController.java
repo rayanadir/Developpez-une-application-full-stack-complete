@@ -6,7 +6,7 @@ import com.openclassrooms.mddapi.payload.request.SignupRequest;
 import com.openclassrooms.mddapi.payload.response.JwtResponse;
 import com.openclassrooms.mddapi.payload.response.MessageResponse;
 import com.openclassrooms.mddapi.repository.UserRepository;
-import com.openclassrooms.mddapi.service.TokenGeneratorService;
+import com.openclassrooms.mddapi.security.jwt.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,7 +27,7 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private TokenGeneratorService tokenGeneratorService;
+    private JwtUtils jwtUtils;
 
     @Autowired
     private UserRepository userRepository;
@@ -41,7 +41,7 @@ public class AuthController {
                 new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String token = tokenGeneratorService.generateToken(authentication);
+        String token = jwtUtils.generateJwtToken(authentication);
 
         return ResponseEntity.ok(new JwtResponse(token));
     }
