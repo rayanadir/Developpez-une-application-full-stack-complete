@@ -1,0 +1,38 @@
+header{
+    display: flex;
+    flex-direction: column;
+}
+
+.logo_div{
+    border-bottom: 1px solid;
+    padding: 0 4rem;
+}
+
+.logo_div_phone{
+    display: flex;
+    align-self: center;
+    border-bottom: 0;
+    padding: 0;
+}
+
+.back_div{
+    padding: 1rem 4rem 0 8rem;
+}
+
+.back_div_phone{
+    padding: 1rem;
+}
+
+.phone{
+    flex-direction: column-reverse;
+}
+
+.logo{
+    width: 200px;
+    height: 100px;
+}
+
+.back:hover{
+    cursor: pointer;
+}
+
