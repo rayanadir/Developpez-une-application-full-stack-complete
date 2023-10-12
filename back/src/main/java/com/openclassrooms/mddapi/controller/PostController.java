@@ -64,7 +64,7 @@ public class PostController {
             Optional<List<Subscription>> subscriptions = this.subscriptionService.findByUser(user);
 
             if(subscriptions.isEmpty())
-                return ResponseEntity.ok().build();
+                return ResponseEntity.ok().body(new ArrayList());
 
             List<PostDTO> list = new ArrayList<>();
 
