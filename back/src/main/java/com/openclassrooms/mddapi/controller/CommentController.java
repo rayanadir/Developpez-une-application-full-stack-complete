@@ -11,12 +11,12 @@ import com.openclassrooms.mddapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/comment")
@@ -49,4 +49,24 @@ public class CommentController {
 
         return ResponseEntity.ok().body(this.commentMapper.toDTO(comment));
     }
+
+    @GetMapping("/posts/{postId}")
+    public ResponseEntity<?> getAllCommentsByPostId(@PathVariable("postId") String postId){
+        try{
+            Post post = this.postService.findPostById(Long.valueOf(postId));
+            Optional<List<Comment>> comments = this.commentService.findAllCommentsByPost(post);
+
+            if(comments.isEmpty())
+                return ResponseEntity.ok().body(new ArrayList());
+
+            List<CommentDTO> commentsList = new ArrayList<>();
+            for(Comment comment : comments.get()){
+                commentsList.add(this.commentMapper.toDTO(comment));
+            }
+            return ResponseEntity.ok().body(commentsList);
+        }catch (NumberFormatException e){
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
 }
