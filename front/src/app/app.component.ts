@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { HeaderComponent } from './components/header/header.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  //standalone: true,
 })
 export class AppComponent implements OnInit{
   
