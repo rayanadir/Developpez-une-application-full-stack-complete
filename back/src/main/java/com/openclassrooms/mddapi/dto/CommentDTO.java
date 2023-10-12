@@ -1,5 +1,6 @@
 package com.openclassrooms.mddapi.dto;
 
+import com.openclassrooms.mddapi.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,10 +14,10 @@ import java.time.LocalDateTime;
 public class CommentDTO {
 
     @NonNull
-    private Long id;
+    private Long postId;
 
     @NonNull
-    private String username;
+    private Long userId;
 
     @NonNull
     private String content;
@@ -25,21 +26,24 @@ public class CommentDTO {
     private LocalDateTime created_at;
 
     @NonNull
-    public Long getId() {
-        return id;
+    private LocalDateTime updated_at;
+
+    @NonNull
+    public Long getPostId() {
+        return postId;
     }
 
-    public void setId(@NonNull Long id) {
-        this.id = id;
+    public void setPostId(@NonNull Long postId) {
+        this.postId = postId;
     }
 
     @NonNull
-    public String getUsername() {
-        return username;
+    public Long getUserId(){
+        return userId;
     }
 
-    public void setUsername(@NonNull String username) {
-        this.username = username;
+    public void setUserId(Long userId){
+        this.userId = userId;
     }
 
     @NonNull
@@ -58,5 +62,14 @@ public class CommentDTO {
 
     public void setCreated_at(@NonNull LocalDateTime created_at) {
         this.created_at = created_at;
+    }
+
+    @NonNull
+    public LocalDateTime getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(@NonNull LocalDateTime updated_at) {
+        this.updated_at = updated_at;
     }
 }
