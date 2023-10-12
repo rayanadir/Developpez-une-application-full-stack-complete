@@ -1,0 +1,45 @@
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { ResponsiveService } from 'src/app/services/responsive.service';
+
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
+})
+export class LoginComponent implements OnInit {
+
+  currentBreakpoint:"desktop" | "tablet" | "phone" | undefined;
+  public responsiveSubscription! : Subscription;
+
+  public form = this.fb.group({
+    email: [
+      '',
+      [
+        Validators.required,
+        Validators.email
+      ]
+    ],
+    password: [
+      '',
+      [
+        Validators.required,
+        Validators.min(8)
+      ]
+    ]
+  });
+
+  constructor(private fb: FormBuilder, private responsiveService: ResponsiveService) { }
+
+  ngOnInit(): void {
+    /**
+     * Observe current window format : "desktop" | "tablet" | "phone" | undefined
+     */
+    this.responsiveSubscription = this.responsiveService.observeBreakpoint().subscribe(() => {
+      this.currentBreakpoint = this.responsiveService.breakpointChanged();
+    });
+  }
+
+}
