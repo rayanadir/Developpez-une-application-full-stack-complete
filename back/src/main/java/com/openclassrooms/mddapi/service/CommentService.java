@@ -17,7 +17,7 @@ public class CommentService {
     public Comment create(Comment comment){
         return this.commentRepository.save(comment);
     }
-    public Optional<List<Comment>> findByPost(Post post){
+    public Optional<List<Comment>> findAllCommentsByPost(Post post){
         return this.commentRepository.findByPost(post);
     }
 }
