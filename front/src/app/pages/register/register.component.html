@@ -1,0 +1,32 @@
+<main class="main_{{currentBreakpoint}}">
+    <mat-card class="card">
+
+        <mat-card-header class="card-header" fxLayoutAlign="center center">
+            <mat-card-title class="title">S'inscrire</mat-card-title>
+        </mat-card-header>
+        
+        <form class="register-form">
+            <mat-card-content class="card-content_{{currentBreakpoint}}" fxLayout="column">
+                
+                <mat-label class="label">Nom d'utilisateur</mat-label>
+                <mat-form-field class="field">
+                    <input matInput type="text">
+                </mat-form-field>
+
+                <mat-label class="label">Email</mat-label>
+                <mat-form-field class="field">
+                    <input matInput type="email">
+                </mat-form-field>
+
+                <mat-label class="label">Mot de passe</mat-label>
+                <mat-form-field class="field">
+                    <input matInput type="password">
+                </mat-form-field>
+
+            </mat-card-content>
+
+            <button mat-raised-button>S'inscrire</button>
+        </form>
+
+    </mat-card>
+</main>
