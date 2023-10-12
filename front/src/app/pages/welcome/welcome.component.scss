@@ -1,0 +1,35 @@
+main{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 2rem;
+}
+
+.logo{
+    &__phone{
+        width: 300px;
+    }
+}
+
+.auth{
+    &__desktop{
+        display: flex;
+        flex-direction: row;
+        column-gap: 3rem;
+    }
+    &__tablet{
+        display: flex;
+        flex-direction: column;
+        row-gap: 3rem;
+    }
+    &__phone{
+        display: flex;
+        flex-direction: column;
+        row-gap: 3rem;
+    }
+
+    &__button{
+        width: 110px;
+        background-color: white;
+    }
+}
