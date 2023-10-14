@@ -1,0 +1,26 @@
+<main>
+    
+    <div class="create-filter">
+        <button mat-raised-button>Créer un article</button>
+        <div class="filter">
+            <p class="filter__by">Trier par</p>
+            <img class="filter__arrow" src="../../../assets/Arrow 9.png" alt="arrow">
+        </div>
+    </div>
+
+    <section class="posts">
+        <mat-card *ngFor="let i of Arr(num).fill(1)" class="posts__post">
+            <mat-card-header class="posts__post__header">
+              <mat-card-title class="posts__post__header__title">Titre de l'article</mat-card-title>
+              <mat-card-subtitle class="posts__post__header__subtitle">
+                <p class="posts__post__header__subtitle__date">Date</p>
+                <p class="posts__post__header__subtitle__author">Auteur</p>
+              </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content class="posts__post__content">
+              <p>Content : Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus quod at amet tempore, porro reprehenderit nulla numquam explicabo quam enim esse placeat, eveniet exercitationem totam, nostrum incidunt? Suscipit, aperiam sed.</p>
+            </mat-card-content>
+          </mat-card>
+    </section>
+
+</main>
