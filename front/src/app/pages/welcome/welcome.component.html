@@ -1,8 +1,8 @@
-<main class="{{currentBreakpoint}}" [ngStyle]="{'height': screenHeight, 'padding-top': mainTagHeight}">
+<main>
     <section class="logo">
-        <img src="../../../../../assets/logo_p6 1.png" alt="logo" class="logo__{{currentBreakpoint}}">
+        <img src="../../../../../assets/logo_p6 1.png" alt="logo" class="logo__img">
     </section>
-    <section class="auth auth__{{currentBreakpoint}}">
+    <section class="auth">
         <button (click)="navigate('login')" class="auth__button" mat-stroked-button color="warn">Se connecter</button>
         <button (click)="navigate('register')" class="auth__button" mat-stroked-button color="warn">S'inscrire</button>
     </section>
