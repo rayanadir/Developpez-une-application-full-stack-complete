@@ -3,28 +3,92 @@ header{
     flex-direction: column;
 }
 
+header[format="phone"]{
+    flex-direction: column-reverse;
+}
+
 .logo_div{
     border-bottom: 1px solid;
     padding: 0 4rem;
 }
 
-.logo_div_phone{
+.logo_div[format="desktop"]{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo_div[format="phone"],.logo_div[format="tablet"]{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    //align-self: center;
+    border-bottom: 1px solid;
+    padding: 0 1rem;
+}
+
+.logo_div[showNavMenu="true"]{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+ul{
+    padding: 0;
+    column-gap: 2rem;
+}
+
+li{
     display: flex;
     align-self: center;
-    border-bottom: 0;
-    padding: 0;
+    list-style: none;
 }
 
-.back_div{
-    padding: 1rem 4rem 0 8rem;
+.account_circle{
+    font-size: 32px;
 }
 
-.back_div_phone{
+li:hover{
+    cursor: pointer;
+}
+
+ul[format="desktop"]{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+ul[format="tablet"], ul[format="phone"]{
+    display: none;
+}
+
+.mat-icon[format="desktop"]{
+    display: none;
+}
+
+.mat-icon[format="phone"], .mat-icon[format="tablet"]{
+    display: flex;
+    background-color: transparent;
+    width: 32px;
+    height: 32px;
+    justify-content: center;
+    align-items: center;
+}
+
+.back_div[format="phone"]{
     padding: 1rem;
 }
 
-.phone{
-    flex-direction: column-reverse;
+.back_div[format="tablet"]{
+    padding-left: 4rem;
+    padding-top: 1rem;
+}
+
+.back_div[format="desktop"]{
+    padding-left: 8rem;
+    padding-top: 1rem;
 }
 
 .logo{
