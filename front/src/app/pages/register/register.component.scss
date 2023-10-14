@@ -2,15 +2,15 @@ main{
     margin: auto;
 }
 
-.main_desktop{
+main[format="desktop"]{
     width: 70%;
 }
 
-.main_tablet{
+main[format="tablet"]{
     width: 85%;
 }
 
-.main_tablet{
+main[format="phone"]{
     width: 95%;
 }
 
@@ -28,15 +28,15 @@ main{
     align-items: center;
 }
 
-.card-content_phone{
+.card-content[format="phone"]{
     width: 90%;
 }
 
-.card-content_tablet{
+.card-content[format="tablet"]{
     width: 55%;
 }
 
-.card-content_desktop{
+.card-content[format="desktop"]{
     width: 40%;
 }
 

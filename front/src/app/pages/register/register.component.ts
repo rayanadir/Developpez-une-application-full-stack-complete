@@ -20,6 +20,10 @@ export class RegisterComponent implements OnInit {
      */
     this.responsiveSubscription = this.responsiveService.observeBreakpoint().subscribe(() => {
       this.currentBreakpoint = this.responsiveService.breakpointChanged();
+      if(this.currentBreakpoint!=undefined){
+        document.querySelector('main')?.setAttribute('format', this.currentBreakpoint);
+        document.querySelector('.card-content')?.setAttribute('format', this.currentBreakpoint);
+      }
     });
   }
 
