@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { TopicComponent } from './topic/topic.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HeaderComponent } from './components/header/header.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -17,17 +16,20 @@ import { MatCardModule } from '@angular/material/card';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PostsComponent } from './pages/posts/posts.component';
+import { TopicsComponent } from './pages/topics/topics.component';
 
 const materialModule = [MatButtonModule, MatDividerModule, MatIconModule, MatFormFieldModule, MatInputModule,MatCardModule]
 
 @NgModule({
   declarations: [
     AppComponent,
-    TopicComponent,
     HeaderComponent,
     LoginComponent,
     RegisterComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    PostsComponent,
+    TopicsComponent
   ],
   imports: [
     BrowserModule,
