@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ResponsiveService } from 'src/app/services/responsive.service';
@@ -8,7 +8,7 @@ import { ResponsiveService } from 'src/app/services/responsive.service';
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.scss'],
 })
-export class WelcomeComponent implements OnInit {
+export class WelcomeComponent implements OnInit, OnDestroy {
 
   currentBreakpoint:"desktop" | "tablet" | "phone" | undefined;
   public responsiveSubscription! : Subscription;
@@ -23,6 +23,11 @@ export class WelcomeComponent implements OnInit {
      */
     this.responsiveSubscription = this.responsiveService.observeBreakpoint().subscribe(() => {
       this.currentBreakpoint = this.responsiveService.breakpointChanged();
+      if(this.currentBreakpoint!=null){
+        document.querySelector('main')?.setAttribute('format', this.currentBreakpoint);
+        document.querySelector('.auth')?.setAttribute('format', this.currentBreakpoint);
+        document.querySelector('.logo__img')?.setAttribute('format', this.currentBreakpoint)
+      }
     });
     this.screenHeight = `${window.innerHeight}px`;
     if(this.currentBreakpoint=="phone"){
@@ -32,6 +37,10 @@ export class WelcomeComponent implements OnInit {
     }else if(this.currentBreakpoint=="desktop"){
       this.mainTagHeight = `${window.innerHeight/4}px`;
     }
+  }
+
+  ngOnDestroy(): void {
+      this.responsiveSubscription.unsubscribe();
   }
 
   navigate(path:string): void {
