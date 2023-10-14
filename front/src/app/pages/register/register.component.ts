@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ResponsiveService } from 'src/app/services/responsive.service';
 
@@ -7,7 +7,7 @@ import { ResponsiveService } from 'src/app/services/responsive.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
 
   currentBreakpoint:"desktop" | "tablet" | "phone" | undefined;
   public responsiveSubscription! : Subscription;
@@ -25,6 +25,10 @@ export class RegisterComponent implements OnInit {
         document.querySelector('.card-content')?.setAttribute('format', this.currentBreakpoint);
       }
     });
+  }
+
+  ngOnDestroy(): void {
+      this.responsiveSubscription.unsubscribe();
   }
 
 }
