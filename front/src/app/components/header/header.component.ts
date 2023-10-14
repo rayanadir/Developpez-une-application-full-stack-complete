@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { ResponsiveService } from 'src/app/services/responsive.service';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -14,8 +15,25 @@ export class HeaderComponent implements OnInit {
   public responsiveSubscription! : Subscription;
   public screenHeight: any;
   public mainTagHeight: any;
+  showBackArrow: boolean=true;
 
-  constructor(public location: Location,  private responsiveService: ResponsiveService) { }
+  routes = ["/login", "/register"];
+
+  constructor(
+    public location: Location,
+    private responsiveService: ResponsiveService,
+    public router: Router
+    ) {
+      this.router.events.subscribe((event:any) => {
+        if(event instanceof NavigationEnd){
+          if(this.routes.includes(router.url)){
+            this.showBackArrow=true;
+          }else{
+            this.showBackArrow=false;
+          }
+        }
+      })
+     }
 
   ngOnInit(): void {
     /**
@@ -24,6 +42,7 @@ export class HeaderComponent implements OnInit {
     this.responsiveSubscription = this.responsiveService.observeBreakpoint().subscribe(() => {
       this.currentBreakpoint = this.responsiveService.breakpointChanged();
     });
+    
   }
 
   navigateBack(){
