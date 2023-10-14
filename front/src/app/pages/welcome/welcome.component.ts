@@ -12,8 +12,6 @@ export class WelcomeComponent implements OnInit, OnDestroy {
 
   currentBreakpoint:"desktop" | "tablet" | "phone" | undefined;
   public responsiveSubscription! : Subscription;
-  public screenHeight: any;
-  public mainTagHeight: any;
 
   constructor(public router: Router, private responsiveService: ResponsiveService,) { }
 
@@ -29,14 +27,6 @@ export class WelcomeComponent implements OnInit, OnDestroy {
         document.querySelector('.logo__img')?.setAttribute('format', this.currentBreakpoint)
       }
     });
-    this.screenHeight = `${window.innerHeight}px`;
-    if(this.currentBreakpoint=="phone"){
-      this.mainTagHeight = `${window.innerHeight/6}px`;
-    }else if(this.currentBreakpoint=="tablet"){
-      this.mainTagHeight = `${window.innerHeight/5}px`;
-    }else if(this.currentBreakpoint=="desktop"){
-      this.mainTagHeight = `${window.innerHeight/4}px`;
-    }
   }
 
   ngOnDestroy(): void {
@@ -45,18 +35,6 @@ export class WelcomeComponent implements OnInit, OnDestroy {
 
   navigate(path:string): void {
     this.router.navigate([`/${path}`]);
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any){
-    this.screenHeight = `${event.target.innerHeight}px`;
-    if(this.currentBreakpoint=="phone"){
-      this.mainTagHeight = `${event.target.innerHeight/6}px`;
-    }else if(this.currentBreakpoint=="tablet"){
-      this.mainTagHeight = `${event.target.innerHeight/5}px`;
-    }else if(this.currentBreakpoint=="desktop"){
-      this.mainTagHeight = `${event.target.innerHeight/4}px`;
-    }
   }
 
 }
