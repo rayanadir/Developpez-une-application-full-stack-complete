@@ -5,31 +5,38 @@ main{
     row-gap: 2rem;
 }
 
+main[format="desktop"]{
+    padding-top: 200px;
+}
+
+main[format="tablet"]{
+    padding-top: 100px;
+}
+
+main[format="phone"]{
+    padding-top: 75px;
+}
+
 .logo{
-    &__phone{
-        width: 300px;
+    &__img[format="phone"]{
+        max-width: 225px;
     }
 }
 
 .auth{
-    &__desktop{
-        display: flex;
-        flex-direction: row;
-        column-gap: 3rem;
-    }
-    &__tablet{
-        display: flex;
-        flex-direction: column;
-        row-gap: 3rem;
-    }
-    &__phone{
-        display: flex;
-        flex-direction: column;
-        row-gap: 3rem;
-    }
-
+    display: flex;
     &__button{
         width: 110px;
         background-color: white;
     }
+}
+
+.auth[format="desktop"]{
+    flex-direction: row;
+    column-gap: 3rem;
+}
+
+.auth[format="tablet"], .auth[format="phone"]{
+    flex-direction: column;
+    row-gap: 3rem;
 }
