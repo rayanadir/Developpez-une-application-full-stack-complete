@@ -4,12 +4,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { PostsComponent } from './pages/posts/posts.component';
 
 const routes : Routes = [
   {path:"", redirectTo:"welcome", pathMatch:"full"},
   {title: "Welcome", path: "welcome", component: WelcomeComponent},
   {title: "Login", path:"login", component: LoginComponent},
-  {title: "Register", path:"register", component: RegisterComponent}
+  {title: "Register", path:"register", component: RegisterComponent},
+  {title: "Posts", path:"posts", component: PostsComponent}
 ];
 
 @NgModule({
