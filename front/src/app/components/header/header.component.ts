@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   showNavMenu: boolean=true;
 
   authenticationRoutes = ["/login", "/register"];
-  authenticatedRoutes = ["/posts"]
+  authenticatedRoutes = ["/posts", "/topics", "/account"];
 
   constructor(
     public location: Location,
@@ -41,6 +41,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
             if(this.currentBreakpoint!=undefined){
               document.querySelector('ul')?.setAttribute('format', this.currentBreakpoint);
               document.querySelector('.mat-icon')?.setAttribute('format', this.currentBreakpoint);
+              this.setActive(router.url.substring(1));
             }
           }
         }
@@ -69,6 +70,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   navigateBack(){
     this.location.back();
+  }
+
+  click(element:string){
+    this.setActive(element);
+    this.router.navigate([`/${element}`]);  
+  }
+
+  setActive(element:string){
+    document.getElementById("nav_topics")?.setAttribute('active', "false");
+    document.getElementById("nav_posts")?.setAttribute('active', "false");
+    document.querySelector('.account_circle')?.setAttribute('active', "false");
+    if(element=="topics" || element=="posts"){
+      document.getElementById(`nav_${element}`)?.setAttribute('active', "true");
+    }else if(element=="account"){
+      document.querySelector('.account_circle')?.setAttribute('active', "true");
+    }
   }
 
 }
