@@ -1,0 +1,46 @@
+<main class="main-account">
+
+    <section class="user">
+        <mat-card class="card">
+            <mat-card-header class="card-header" fxLayoutAlign="center center">
+                <mat-card-title class="title">Profil utilisateur</mat-card-title>
+            </mat-card-header>
+            <form class="account-form">
+                <mat-card-content class="account-content" fxLayout="column">
+                    
+                    <!--<mat-label class="label">Nom d'utilisateur</mat-label>-->
+                    <mat-form-field class="field">
+                        <input matInput type="text" value="Username">
+                    </mat-form-field>
+    
+                    <!--<mat-label class="label">Email</mat-label>-->
+                    <mat-form-field class="field">
+                        <input matInput type="email" value="Email">
+                    </mat-form-field>
+    
+                </mat-card-content>
+    
+                <div class="buttons">
+                    <button id="save" mat-raised-button>Sauvegarder</button>
+                    <button id="logout" mat-button color="warn">Se déconnecter</button>
+                </div>
+                
+            </form>
+        </mat-card>
+    </section>
+    <hr>
+    <section class="subscriptions">
+        <h1>Abonnements</h1>
+        <div class="subscriptions__list">
+            <mat-card *ngFor="let i of Arr(num).fill(1)" class="subscriptions__subscription">
+                <mat-card-header class="subscriptions__subscription__header">
+                    <mat-card-title class="subscriptions__subscription__header__title">Titre du thème</mat-card-title>
+                </mat-card-header>
+                <mat-card-content class="subscriptions__subscription__content">
+                    <p>Description : Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam minus enim aperiam, officia blanditiis voluptas error qui voluptatem temporibus doloribus, excepturi atque nulla consectetur expedita rerum, nam eaque cum in.</p>
+                    <button class="subscriptions__subscription__content__button" mat-raised-button>Se désabonner</button>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </section>
+</main>

@@ -1,0 +1,142 @@
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    padding: 2rem 0;
+}
+
+.main-account[format="desktop"]{
+    width: 70%;
+}
+
+.main-account[format="tablet"]{
+    width: 85%;
+}
+
+.main-account[format="phone"]{
+    width: 95%;
+}
+
+.user{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 1rem;
+}
+
+.card[format="desktop"]{
+    width: 40%;
+}
+
+.card[format="tablet"]{
+    width: 55%;
+}
+
+.card[format="phone"]{
+    width: 90%;
+}
+
+.card-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+.title{
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.account-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.account-content{
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    width: 100%;
+}
+
+input{
+    border: 2px solid #7763C5;
+    border-radius: 7px;
+    height: 40px;
+    padding-left: 6px;
+    box-sizing: border-box;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+}
+
+#save{
+    background-color: #7763C5;
+    color: white;
+    border-radius: 5px;
+    padding: 2px 16px;
+    font-weight: 600;
+}
+
+#logout{
+    background-color: transparent;
+    color: red;
+    font-weight: 600;
+}
+
+hr{
+    width: 100%;
+}
+
+.subscriptions{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    &__list{
+        display: grid;
+    }
+    &__list[format="desktop"],&__list[format="tablet"]{
+        grid-template-columns: auto auto;
+    }
+    &__list[format="phone"]{
+        grid-template-columns: auto;
+    }
+    &__subscription{
+        &__header{
+            display: block;
+            &__title{
+                font-weight: 700;
+            }
+        }
+        &__content{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 16px;
+            &__button{
+                background-color: #7763C5;
+                color: white;
+                border-radius: 5px;
+                padding: 2px 16px;
+                font-weight: 600;
+            }
+        }
+    }
+}
+
