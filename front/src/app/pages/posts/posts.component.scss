@@ -6,15 +6,15 @@ main{
     padding: 2rem 0;
 }
 
-main[format="desktop"]{
+.main-posts[format="desktop"]{
     width: 70%;
 }
 
-main[format="tablet"]{
+.main-posts[format="tablet"]{
     width: 85%;
 }
 
-main[format="phone"]{
+.main-posts[format="phone"]{
     width: 95%;
 }
 
@@ -85,11 +85,7 @@ button{
     }
 }
 
-.posts[format="desktop"]{
-    grid-template-columns: auto auto;
-}
-
-.posts[format="tablet"]{
+.posts[format="desktop"], .posts[format="tablet"]{
     grid-template-columns: auto auto;
 }
 
