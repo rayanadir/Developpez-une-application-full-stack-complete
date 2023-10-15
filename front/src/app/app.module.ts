@@ -18,6 +18,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PostsComponent } from './pages/posts/posts.component';
 import { TopicsComponent } from './pages/topics/topics.component';
+import { AccountComponent } from './pages/account/account.component';
 
 const materialModule = [MatButtonModule, MatDividerModule, MatIconModule, MatFormFieldModule, MatInputModule,MatCardModule]
 
@@ -29,7 +30,8 @@ const materialModule = [MatButtonModule, MatDividerModule, MatIconModule, MatFor
     RegisterComponent,
     WelcomeComponent,
     PostsComponent,
-    TopicsComponent
+    TopicsComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,
