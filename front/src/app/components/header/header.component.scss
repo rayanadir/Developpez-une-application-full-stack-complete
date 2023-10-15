@@ -23,7 +23,6 @@ header[format="phone"]{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    //align-self: center;
     border-bottom: 1px solid;
     padding: 0 1rem;
 }
@@ -62,6 +61,14 @@ ul[format="desktop"]{
 
 ul[format="tablet"], ul[format="phone"]{
     display: none;
+}
+
+#nav_topics[active="true"], #nav_posts[active="true"],.account_circle[active="true"]{
+    color: #6C5CCF;
+}
+
+#nav_topics[active="false"], #nav_posts[active="false"],.account_circle[active="false"]{
+    color: black;
 }
 
 .mat-icon[format="desktop"]{
