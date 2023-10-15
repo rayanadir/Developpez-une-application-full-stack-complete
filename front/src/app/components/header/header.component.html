@@ -3,9 +3,9 @@
         <img class="logo" src="../../../assets/logo_p6 1.png" alt="logo">
         <nav class="nav" *ngIf="showNavMenu">
             <ul>
-                <li>Articles</li>
-                <li>Thèmes</li>
-                <li>
+                <li (click)="click('posts')" id="nav_posts">Articles</li>
+                <li (click)="click('topics')" id="nav_topics">Thèmes</li>
+                <li (click)="click('account')" id="nav_account">
                     <span class="material-symbols-outlined account_circle">
                         account_circle
                     </span>
