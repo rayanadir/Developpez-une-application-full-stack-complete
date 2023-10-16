@@ -110,6 +110,8 @@ hr{
     align-items: center;
     &__list{
         display: grid;
+        column-gap: 1rem;
+        row-gap: 1rem;
     }
     &__list[format="desktop"],&__list[format="tablet"]{
         grid-template-columns: auto auto;
@@ -118,6 +120,8 @@ hr{
         grid-template-columns: auto;
     }
     &__subscription{
+        background-color: #F5F5F5;
+        border-radius: 5px;
         &__header{
             display: block;
             &__title{
