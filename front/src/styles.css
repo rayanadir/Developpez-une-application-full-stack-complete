@@ -8,3 +8,13 @@ body{
     min-height: 100%;
     margin: 0;
 }
+
+.remove-arrow{
+    .mat-select-arrow {
+        border: none;
+      }
+}
+
+.mat-form-field textarea.mat-input-element {
+    resize: none;
+}
