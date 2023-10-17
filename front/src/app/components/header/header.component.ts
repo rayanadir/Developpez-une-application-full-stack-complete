@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   showNavMenu: boolean=true;
 
   authenticationRoutes = ["/login", "/register"];
-  authenticatedRoutes = ["/posts", "/topics", "/account"];
+  authenticatedRoutes = ["/posts", "/topics", "/account", "/create"];
 
   constructor(
     public location: Location,
