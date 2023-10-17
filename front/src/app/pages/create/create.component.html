@@ -1,0 +1,39 @@
+<main class="main-create">
+    <section class="create">
+        <mat-card class="card">
+            <mat-card-header class="card-header" fxLayoutAlign="center center">
+                <img src="../../../assets/Arrow 9.png" (click)="back()" class="back" alt="back">
+                <mat-card-title class="title">Créer un nouvel article</mat-card-title>
+            </mat-card-header>
+            <form class="create-form">
+                <mat-card-content class="create-content" fxLayout="column">
+                    
+                    <mat-form-field class="remove-arrow field" appearance="fill">
+                        <mat-select matNativeControl disableRipple placeholder="Sélectionner un thème" floatlLabel="never" class="select">
+                            <mat-option value="1">Option 1</mat-option>
+                            <mat-option value="2">Option 2</mat-option>
+                            <mat-option value="3">Option 3</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field class="field"  appearance="fill">
+                        <input matInput type="text" placeholder="Titre de l'article">
+                    </mat-form-field>
+                    
+                    <mat-form-field class="field"  appearance="fill">
+                        <textarea matInput placeholder="Contenu de l'article" rows="10"></textarea>
+                    </mat-form-field>
+                    <button mat-raised-button>Créer</button>
+                </mat-card-content>
+                
+            </form>
+        </mat-card>
+    </section>
+
+        <!--<mat-select disableRipple placeholder="Sélectionner un thème" floatlLabel="never">
+            <mat-option value="1">Option 1</mat-option>
+            <mat-option value="2">Option 2</mat-option>
+            <mat-option value="3">Option 3</mat-option>
+        </mat-select>-->
+    
+</main>
