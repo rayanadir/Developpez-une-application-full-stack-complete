@@ -13,14 +13,27 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
+import {MatSelectModule} from '@angular/material/select';
+import {MatMenuModule} from '@angular/material/menu';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PostsComponent } from './pages/posts/posts.component';
 import { TopicsComponent } from './pages/topics/topics.component';
 import { AccountComponent } from './pages/account/account.component';
+import { CreateComponent } from './pages/create/create.component';
+import { PostComponent } from './pages/post/post.component';
 
-const materialModule = [MatButtonModule, MatDividerModule, MatIconModule, MatFormFieldModule, MatInputModule,MatCardModule]
+const materialModule = [
+  MatButtonModule,
+  MatDividerModule,
+  MatIconModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatCardModule,
+  MatSelectModule, 
+  FormsModule,
+  MatMenuModule
+];
 
 @NgModule({
   declarations: [
@@ -31,7 +44,9 @@ const materialModule = [MatButtonModule, MatDividerModule, MatIconModule, MatFor
     WelcomeComponent,
     PostsComponent,
     TopicsComponent,
-    AccountComponent
+    AccountComponent,
+    CreateComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule,
