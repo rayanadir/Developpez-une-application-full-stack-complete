@@ -8,6 +8,7 @@ import { PostsComponent } from './pages/posts/posts.component';
 import { TopicsComponent } from './pages/topics/topics.component';
 import { AccountComponent } from './pages/account/account.component';
 import { CreateComponent } from './pages/create/create.component';
+import { PostComponent } from './pages/post/post.component';
 
 const routes: Routes = [
   {
@@ -49,6 +50,11 @@ const routes: Routes = [
     title:"Create Post",
     path: "create",
     component: CreateComponent
+  },
+  {
+    title:" Post",
+    path:"post",
+    component: PostComponent
   }
 ];
 
