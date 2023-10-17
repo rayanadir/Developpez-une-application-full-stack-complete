@@ -1,0 +1,167 @@
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    padding: 2rem 0;
+}
+
+.main-post[format="desktop"]{
+    width: 70%;
+}
+
+.main-post[format="tablet"]{
+    width: 85%;
+}
+
+.main-post[format="phone"]{
+    width: 100%;
+}
+
+.post{
+    &__content{
+        &__date-author-topic{
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            column-gap: 2rem;
+        }
+    }
+}
+
+.card{
+    padding: 16px 0;
+}
+
+.card-header{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.card-header[format="desktop"]{
+    margin-left: -41px;
+}
+
+.card-header[format="phone"], .card-header[format="tablet"]{
+    column-gap: 2rem;
+}
+
+.div_back{
+    display: flex;
+}
+
+.div_back[format="desktop"]{
+    position: relative;
+    right: 50px;
+}
+
+.back:hover{
+    cursor: pointer;
+}
+
+.title{
+    font-size: 24px;
+    font-weight: 600;
+}
+
+::ng-deep .card-header .mat-card-header-text{
+    margin: 0;
+}
+
+::ng-deep .card-header .mat-card-header-text .mat-card-title{
+    margin-bottom: 0;
+}
+
+hr[format="desktop"], hr[format="tablet"]{
+    width: 100%;
+}
+
+hr[format="phone"]{
+    width: 95%;
+}
+
+.comments[format="phone"],.post[format="phone"]{
+    width: 95%;
+}
+
+.comments{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-bottom: 119px;
+    &__title{font-weight: 400;}
+    &__list{
+        display: grid;
+        grid-template-columns: auto;
+    }
+    &__comment{
+        display: flex;
+        column-gap: 1rem; 
+        &__text{
+            border-radius: 6px;
+            padding: 8px 16px;
+        }
+        &__text[format="desktop"],&__text[format="tablet"]{
+            background-color: #EEEEEE;
+        }
+        &__text[format="phone"]{
+            padding-bottom: 32px;
+        }
+    }
+    &__comment[format="desktop"], &__comment[format="tablet"]{
+        flex-direction: row;
+    }
+    &__comment[format="phone"]{
+        flex-direction: row-reverse;
+        align-items: flex-end;
+    }
+}
+
+.comment{
+    position: fixed;
+    bottom: 0;
+    background-color: white;
+    border-radius: 6px;
+    border: 1px solid;
+    &__form{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        &__field{
+            width: 100%;
+            ::ng-deep .mat-form-field-infix{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            &__send{
+                height: min-content;
+            }
+            &__send:hover{
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.comment[format="phone"]{
+    width: 98%;
+}
+
+.comment[format="tablet"]{
+    width: inherit;
+}
+
+.comment[format="desktop"]{
+    width: inherit;
+    bottom: 10px;
+}
+
+#send[format="desktop"]{
+    position: relative;
+    left: 90px;
+}

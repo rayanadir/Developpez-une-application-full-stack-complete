@@ -1,0 +1,43 @@
+<main class="main-post">
+
+    <section class="post">
+        <mat-card class="card">
+            <mat-card-header class="card-header" fxLayoutAlign="center center">
+                <div class="div_back">
+                    <img class="back" (click)="back()" src="../../../assets/Arrow 9.png" alt="back">
+                </div>
+                
+                <mat-card-title class="title">Titre de l'article sélectionné</mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="post__content">
+                <div class="post__content__date-author-topic">
+                    <p>Date</p>
+                    <p>Auteur</p>
+                    <p>Thème</p>
+                </div>
+                <p class="post__content__text">
+                    Content : Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique magni ratione, voluptatibus deleniti eligendi consectetur neque, quis nisi adipisci, omnis officiis et voluptate nam libero assumenda explicabo labore. Atque, sit?
+                </p>
+            </mat-card-content>
+        </mat-card>
+    </section>
+    <hr>
+    <section class="comments">
+        <h3 class="comments__title">Commentaires</h3>
+        <div class="comments__list">
+            <article *ngFor="let i of Arr(num).fill(1)" class="comments__comment">
+                <p class="comments__comment__username">Username</p>
+                <p class="comments__comment__text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rem praesentium provident minus recusandae aliquam nam ullam voluptate quia. Officia necessitatibus id ab enim, ipsa veritatis. Laboriosam delectus dicta dolor repudiandae.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="comment">
+        <form class="comment__form">
+            <mat-form-field class="comment__form__field" appearance="fill">
+              <textarea class="comment__form__field__textarea" rows="5" matInput placeholder="Écrivez votre commentaire ici"></textarea>
+              <img id="send" class="comment__form__field__send" src="../../../assets/icon _send_.png" alt="send">
+            </mat-form-field>
+          </form>
+    </section>
+</main>
