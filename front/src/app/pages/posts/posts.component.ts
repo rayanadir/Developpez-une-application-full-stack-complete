@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ResponsiveService } from 'src/app/services/responsive.service';
 
@@ -15,7 +16,7 @@ export class PostsComponent implements OnInit, OnDestroy, AfterViewInit {
   Arr = Array; //Array type captured in a variable
   num:number = 5;
 
-  constructor(private responsiveService: ResponsiveService) {
+  constructor(private responsiveService: ResponsiveService, private router: Router) {
     this.currentBreakpoint = this.responsiveService.breakpointChanged();
     if(this.currentBreakpoint!=undefined){
       document.querySelector('main')?.setAttribute('format', this.currentBreakpoint);
@@ -48,5 +49,9 @@ export class PostsComponent implements OnInit, OnDestroy, AfterViewInit {
         document.querySelector('.create-filter')?.setAttribute('format', this.currentBreakpoint);
         document.querySelector('.posts')?.setAttribute('format', this.currentBreakpoint);
       }
+  }
+
+  navigate(){
+    this.router.navigate(['/create']);
   }
 }
