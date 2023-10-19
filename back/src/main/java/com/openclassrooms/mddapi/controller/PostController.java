@@ -32,6 +32,12 @@ public class PostController {
 
     private PostMapper postMapper;
 
+    @GetMapping()
+    public ResponseEntity<?> findAll(){
+        List<Post> posts = this.postService.findAllPosts();
+        return ResponseEntity.ok().body(this.postMapper.toDto(posts));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable("id") String id){
         try {
