@@ -10,12 +10,14 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Component
 @Mapper(componentModel = "spring", uses = {PostService.class}, imports = {Arrays.class, Collectors.class, Post.class, User.class, Collections.class, Optional.class})
 public abstract class PostMapper implements EntityMapper<PostDTO, Post> {
 

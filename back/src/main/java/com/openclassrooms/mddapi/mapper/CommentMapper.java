@@ -10,9 +10,11 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
+@Component
 @Mapper(componentModel = "spring", uses={CommentService.class}, imports = {Arrays.class, Collections.class, Post.class})
 public abstract class CommentMapper implements EntityMapper<CommentDTO, Comment> {
 
