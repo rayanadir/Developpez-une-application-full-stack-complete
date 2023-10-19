@@ -53,6 +53,11 @@ public class AuthController {
         }
         User user = new User(signupRequest.getEmail(), signupRequest.getUsername(), passwordEncoder.encode(signupRequest.getPassword()));
         userRepository.save(user);
-        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(signupRequest.getEmail(), signupRequest.getPassword())
+        );
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String token = jwtUtils.generateJwtToken(authentication);
+        return ResponseEntity.ok(new JwtResponse(token));
     }
 }
