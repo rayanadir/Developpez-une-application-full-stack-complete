@@ -50,7 +50,7 @@ public class CommentController {
         return ResponseEntity.ok().body(this.commentMapper.toDTO(comment));
     }
 
-    @GetMapping("/posts/{postId}")
+    @GetMapping("/{postId}")
     public ResponseEntity<?> getAllCommentsByPostId(@PathVariable("postId") String postId){
         try{
             Post post = this.postService.findPostById(Long.valueOf(postId));
