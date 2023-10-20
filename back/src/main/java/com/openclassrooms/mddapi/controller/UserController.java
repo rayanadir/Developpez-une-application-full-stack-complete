@@ -1,5 +1,6 @@
 package com.openclassrooms.mddapi.controller;
 
+import com.openclassrooms.mddapi.dto.UserDTO;
 import com.openclassrooms.mddapi.mapper.UserMapper;
 import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.service.UserService;
@@ -7,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/user")
@@ -27,10 +26,21 @@ public class UserController {
             String email = authentication.getName();
             if(email == null)
                 return ResponseEntity.notFound().build();
-            User user = userService.findByEmail(email);
+            User user = this.userService.findByEmail(email);
             return ResponseEntity.ok().body(this.userMapper.toDto(user));
         }catch (NumberFormatException e){
             return ResponseEntity.badRequest().build();
         }
     }
+
+    @PutMapping("{id}")
+    public ResponseEntity<?> update(@PathVariable("id") String id, @RequestBody UserDTO userDTO){
+        try{
+            User user = this.userService.update(Long.parseLong(id), this.userMapper.toEntity(userDTO));
+            return ResponseEntity.ok().body(this.userMapper.toDto(user));
+        }catch (NumberFormatException e){
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
 }
