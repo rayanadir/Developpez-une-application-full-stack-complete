@@ -17,19 +17,24 @@ public class UserService {
 
 
     public User findByEmail(String email){
-        return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Email not found : " + email));
+        return this.userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Email not found : " + email));
     }
 
     public User findById(Long id){
-        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("Error ! User not found"));
+        return this.userRepository.findById(id).orElseThrow(() -> new RuntimeException("Error ! User not found"));
     }
 
     public User createUser(User user){
-        return userRepository.save(user);
+        return this.userRepository.save(user);
     }
 
     public Boolean existsByEmail(String email){
-        return userRepository.existsByEmail(email);
+        return this.userRepository.existsByEmail(email);
+    }
+
+    public User update(Long id, User user){
+        user.setId(id);
+        return this.userRepository.save(user);
     }
 
 }
