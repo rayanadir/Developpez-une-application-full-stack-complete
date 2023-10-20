@@ -34,6 +34,9 @@ public class UserDTO {
     private LocalDateTime created_at;
 
     @NonNull
+    private LocalDateTime updated_at;
+
+    @NonNull
     public Long getId() {
         return id;
     }
@@ -76,5 +79,14 @@ public class UserDTO {
 
     public void setCreated_at(@NonNull LocalDateTime created_at) {
         this.created_at = created_at;
+    }
+
+    @NonNull
+    public LocalDateTime getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(@NonNull LocalDateTime updated_at) {
+        this.updated_at = updated_at;
     }
 }
