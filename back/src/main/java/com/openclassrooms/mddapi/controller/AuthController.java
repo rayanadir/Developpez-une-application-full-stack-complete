@@ -38,11 +38,11 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest){
-        Authentication authentication = authenticationManager.authenticate(
+        Authentication authentication = this.authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String token = jwtUtils.generateJwtToken(authentication);
+        String token = this.jwtUtils.generateJwtToken(authentication);
 
         return ResponseEntity.ok(new JwtResponse(token));
     }
@@ -52,13 +52,13 @@ public class AuthController {
         if(this.userService.existsByEmail(signupRequest.getEmail())){
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already taken!"));
         }
-        User user = new User(signupRequest.getEmail(), signupRequest.getUsername(), passwordEncoder.encode(signupRequest.getPassword()));
+        User user = new User(signupRequest.getEmail(), signupRequest.getUsername(), this.passwordEncoder.encode(signupRequest.getPassword()));
         this.userService.createUser(user);
-        Authentication authentication = authenticationManager.authenticate(
+        Authentication authentication = this.authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(signupRequest.getEmail(), signupRequest.getPassword())
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String token = jwtUtils.generateJwtToken(authentication);
+        String token = this.jwtUtils.generateJwtToken(authentication);
         return ResponseEntity.ok(new JwtResponse(token));
     }
 }
