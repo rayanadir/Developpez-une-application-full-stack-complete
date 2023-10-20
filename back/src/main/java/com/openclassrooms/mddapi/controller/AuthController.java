@@ -7,6 +7,7 @@ import com.openclassrooms.mddapi.payload.response.JwtResponse;
 import com.openclassrooms.mddapi.payload.response.MessageResponse;
 import com.openclassrooms.mddapi.repository.UserRepository;
 import com.openclassrooms.mddapi.security.jwt.JwtUtils;
+import com.openclassrooms.mddapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,7 +31,7 @@ public class AuthController {
     private JwtUtils jwtUtils;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -48,11 +49,11 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody SignupRequest signupRequest){
-        if(userRepository.existsByEmail(signupRequest.getEmail())){
+        if(this.userService.existsByEmail(signupRequest.getEmail())){
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already taken!"));
         }
         User user = new User(signupRequest.getEmail(), signupRequest.getUsername(), passwordEncoder.encode(signupRequest.getPassword()));
-        userRepository.save(user);
+        this.userService.createUser(user);
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(signupRequest.getEmail(), signupRequest.getPassword())
         );
