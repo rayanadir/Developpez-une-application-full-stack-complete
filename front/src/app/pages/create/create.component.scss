@@ -28,6 +28,7 @@ main{
     justify-content: center;
     align-items: center;
     row-gap: 2rem;
+    box-shadow: none;
 }
 
 .card-header{
@@ -83,7 +84,6 @@ main{
     display: flex;
     flex-direction: column;
     align-items: center;
-    row-gap: 2rem;
 }
 
 .create-content[format="desktop"]{
@@ -116,6 +116,9 @@ main{
     padding-left: 6px;
 }
 
+::ng-deep .mat-form-field-underline {
+    display: none;
+}
 
 ::ng-deep .mat-form-field-appearance-fill .mat-select-arrow-wrapper{
     transform: translateY(0%);
