@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
-import { ResponsiveService } from 'src/app/services/responsive.service';
+import { ResponsiveService } from 'src/app/services/responsive/responsive.service';
 import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
@@ -10,6 +10,8 @@ import { NavigationEnd, Router } from '@angular/router';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+
+  @Input() status = '';
 
   currentBreakpoint:"desktop" | "tablet" | "phone" | undefined;
   public responsiveSubscription! : Subscription;
@@ -20,6 +22,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   authenticationRoutes = ["/login", "/register"];
   authenticatedRoutes = ["/posts", "/topics", "/account", "/create", "/post"];
+
 
   constructor(
     public location: Location,
@@ -55,8 +58,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.responsiveSubscription = this.responsiveService.observeBreakpoint().subscribe(() => {
       this.currentBreakpoint = this.responsiveService.breakpointChanged();
       if(this.currentBreakpoint!=undefined){
-        document.querySelector('header')?.setAttribute('format', this.currentBreakpoint);
+        document.querySelector('.header-element')?.setAttribute('format', this.currentBreakpoint);
         document.querySelector('.logo_div')?.setAttribute('format', this.currentBreakpoint);
+        document.querySelector('.logo_div')?.setAttribute('status', this.status);
+        document.querySelector('.nav-element')?.setAttribute('status', this.status);
+        document.querySelector('.back_div')?.setAttribute('status', this.status);
         document.querySelector('.back_div')?.setAttribute('format', this.currentBreakpoint);
         document.querySelector('ul')?.setAttribute('format', this.currentBreakpoint);
         document.querySelector('.mat-icon')?.setAttribute('format', this.currentBreakpoint);
@@ -69,7 +75,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   navigateBack(){
-    this.location.back();
+    this.router.navigate(["/welcome"]);
   }
 
   click(element:string){
@@ -81,11 +87,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
     document.getElementById("nav_topics")?.setAttribute('active', "false");
     document.getElementById("nav_posts")?.setAttribute('active', "false");
     document.querySelector('.account_circle')?.setAttribute('active', "false");
-    if(element=="topics" || element=="posts"){
+    document.getElementById("nav_topics_sidenav")?.setAttribute('active', "false");
+    document.getElementById("nav_posts_sidenav")?.setAttribute('active', "false");
+    document.getElementById("nav_account_sidenav_icon")?.setAttribute('active', "false");
+    if(["topics","posts"].includes(element)){
       document.getElementById(`nav_${element}`)?.setAttribute('active', "true");
+      document.getElementById(`nav_${element}_sidenav`)?.setAttribute('active', "true")
     }else if(element=="account"){
       document.querySelector('.account_circle')?.setAttribute('active', "true");
+      document.getElementById(`nav_account_sidenav_icon`)?.setAttribute('active', "true");       
     }
   }
-
 }

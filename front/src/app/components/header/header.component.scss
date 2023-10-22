@@ -3,8 +3,13 @@ header{
     flex-direction: column;
 }
 
-header[format="phone"]{
+.header-element[format="phone"]{
     flex-direction: column-reverse;
+}
+
+.logo_div[format="desktop"][status="authentication"]{
+    justify-content: flex-start;
+    border-bottom: 1px solid;
 }
 
 .logo_div{
@@ -34,7 +39,52 @@ header[format="phone"]{
     justify-content: space-between;
 }
 
+.logo_div[status="authentication"] > .nav-element{
+    display: none;
+}
+
+.logo_div[status="authentication"]{
+    justify-content: center;
+    border-bottom: 0;
+}
+
+.nav-element.authentication{
+    display: none;
+}
+
+.nav-element.authenticated{
+    display: block;
+}
+
+ul.desktop{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0;
+    column-gap: 2rem;
+}
+
+ul.phone_tablet{
+    display: none;
+}
+
+.mat-icon.desktop{
+    display: none;
+}
+
+.mat-icon.phone_tablet{
+    display: flex;
+    background-color: transparent;
+    width: 32px;
+    height: 32px;
+    justify-content: center;
+    align-items: center;
+}
+
 ul{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     padding: 0;
     column-gap: 2rem;
 }
@@ -53,21 +103,11 @@ li:hover{
     cursor: pointer;
 }
 
-ul[format="desktop"]{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-ul[format="tablet"], ul[format="phone"]{
-    display: none;
-}
-
-#nav_topics[active="true"], #nav_posts[active="true"],.account_circle[active="true"]{
+#nav_topics[active="true"], #nav_posts[active="true"],.account_circle[active="true"],#nav_posts_sidenav[active="true"],#nav_topics_sidenav[active="true"], #nav_account_sidenav_icon[active="true"]{
     color: #6C5CCF;
 }
 
-#nav_topics[active="false"], #nav_posts[active="false"],.account_circle[active="false"]{
+#nav_topics[active="false"], #nav_posts[active="false"],.account_circle[active="false"],#nav_posts_sidenav[active="false"],#nav_topics_sidenav[active="false"], #nav_account_sidenav_icon[active="false"]{
     color: black;
 }
 
@@ -84,6 +124,11 @@ ul[format="tablet"], ul[format="phone"]{
     align-items: center;
 }
 
+
+.back_div[status="authentication"]{
+    display: block;
+}
+
 .back_div[format="phone"]{
     padding: 1rem;
 }
@@ -98,6 +143,14 @@ ul[format="tablet"], ul[format="phone"]{
     padding-top: 1rem;
 }
 
+.back_div.authentication{
+    display: block;
+}
+
+.back_div.authenticated{
+    display: none;
+}
+
 .logo{
     width: 200px;
     height: 100px;
@@ -107,3 +160,47 @@ ul[format="tablet"], ul[format="phone"]{
     cursor: pointer;
 }
 
+.sidenav-container {
+    /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+       causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+    flex:1    
+}
+  
+  
+#snav{
+    width: 62.5%;
+    background-color: white;
+    border: 1px solid;
+    overflow: hidden;
+}
+
+.sidenav-list{
+    display: flex;
+    flex-direction: column-reverse;
+    height: 100%;
+    padding: 0;
+}
+
+.sidenav-list > ul{
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin: 0;
+    height: 85%;
+    padding-right: 1rem;
+}
+
+.sidenav-list{
+    &__posts-topics{
+        display: flex;
+        flex-direction: column;
+        row-gap: 1rem;
+        &__element{
+            font-size: 22px;
+        }
+    }
+}
+
+.icon_end{align-self: flex-end;}
+
+.icon_end > .account_circle{font-size: 64px;}
