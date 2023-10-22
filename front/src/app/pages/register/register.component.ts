@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ResponsiveService } from 'src/app/services/responsive.service';
+import { ResponsiveService } from 'src/app/services/responsive/responsive.service';
 
 @Component({
   selector: 'app-register',
@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.responsiveSubscription = this.responsiveService.observeBreakpoint().subscribe(() => {
       this.currentBreakpoint = this.responsiveService.breakpointChanged();
       if(this.currentBreakpoint!=undefined){
-        document.querySelector('main')?.setAttribute('format', this.currentBreakpoint);
+        document.querySelector('.main-register')?.setAttribute('format', this.currentBreakpoint);
         document.querySelector('.card-content')?.setAttribute('format', this.currentBreakpoint);
       }
     });
