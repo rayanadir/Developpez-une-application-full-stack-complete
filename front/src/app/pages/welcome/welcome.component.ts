@@ -1,7 +1,8 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ResponsiveService } from 'src/app/services/responsive.service';
+import { ResponsiveService } from 'src/app/services/responsive/responsive.service';
+import { HeaderComponent } from 'src/app/components/header/header.component';
 
 @Component({
   selector: 'app-welcome',
@@ -12,6 +13,7 @@ export class WelcomeComponent implements OnInit, OnDestroy {
 
   currentBreakpoint:"desktop" | "tablet" | "phone" | undefined;
   public responsiveSubscription! : Subscription;
+  public header! : HeaderComponent
 
   constructor(public router: Router, private responsiveService: ResponsiveService,) { }
 
@@ -22,7 +24,7 @@ export class WelcomeComponent implements OnInit, OnDestroy {
     this.responsiveSubscription = this.responsiveService.observeBreakpoint().subscribe(() => {
       this.currentBreakpoint = this.responsiveService.breakpointChanged();
       if(this.currentBreakpoint!=null){
-        document.querySelector('main')?.setAttribute('format', this.currentBreakpoint);
+        document.querySelector('.main-welcome')?.setAttribute('format', this.currentBreakpoint);
         document.querySelector('.auth')?.setAttribute('format', this.currentBreakpoint);
         document.querySelector('.logo__img')?.setAttribute('format', this.currentBreakpoint)
       }
