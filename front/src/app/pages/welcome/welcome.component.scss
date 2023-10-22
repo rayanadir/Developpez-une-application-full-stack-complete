@@ -5,15 +5,15 @@ main{
     row-gap: 2rem;
 }
 
-main[format="desktop"]{
+.main-welcome[format="desktop"]{
     padding-top: 200px;
 }
 
-main[format="tablet"]{
+.main-welcome[format="tablet"]{
     padding-top: 100px;
 }
 
-main[format="phone"]{
+.main-welcome[format="phone"]{
     padding-top: 75px;
 }
 
@@ -26,8 +26,9 @@ main[format="phone"]{
 .auth{
     display: flex;
     &__button{
-        width: 110px;
+        width: 115px;
         background-color: white;
+        color: black;
     }
 }
 
