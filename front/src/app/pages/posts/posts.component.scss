@@ -83,6 +83,9 @@ button{
             padding: 0 16px;
         }
     }
+    &__post:hover{
+        cursor: pointer;
+    }
 }
 
 .posts[format="desktop"], .posts[format="tablet"]{

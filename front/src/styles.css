@@ -26,7 +26,8 @@ body{
 }
 
 .mat-form-field-appearance-fill .mat-form-field-flex {
-    background-color: white;
+    /*background-color: white;*/
+    padding: 0;
 }
 
 app-header[ng-reflect-status="authentication"] .header-element[format="phone"],.header-element[format="tablet"]{
@@ -44,4 +45,8 @@ app-header[ng-reflect-status="authentication"] .logo_div[format="phone"],.logo_d
 
 #nav_topics[active="false"], #nav_posts[active="false"],.account_circle[active="false"]{
     color: black;
+}
+
+.mat-form-field-wrapper{
+    padding-bottom: 0;
 }
