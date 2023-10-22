@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ResponsiveService } from 'src/app/services/responsive.service';
+import { ResponsiveService } from 'src/app/services/responsive/responsive.service';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     ]
   });
 
-  constructor(private fb: FormBuilder, private responsiveService: ResponsiveService) { }
+  constructor(private fb: FormBuilder, private responsiveService: ResponsiveService, private router: Router) { }
 
   ngOnInit(): void {
     /**
@@ -40,7 +41,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.responsiveSubscription = this.responsiveService.observeBreakpoint().subscribe(() => {
       this.currentBreakpoint = this.responsiveService.breakpointChanged();
       if(this.currentBreakpoint!=undefined){
-        document.querySelector('main')?.setAttribute('format', this.currentBreakpoint);
+        document.querySelector('.main-login')?.setAttribute('format', this.currentBreakpoint);
         document.querySelector('.card-content')?.setAttribute('format', this.currentBreakpoint);
       }
     });
@@ -49,5 +50,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
       this.responsiveSubscription.unsubscribe();
   }
+
+  
 
 }
