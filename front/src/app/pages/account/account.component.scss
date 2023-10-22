@@ -30,6 +30,7 @@ main{
     align-items: center;
     justify-content: center;
     row-gap: 1rem;
+    box-shadow: none;
 }
 
 .card[format="desktop"]{
@@ -77,6 +78,10 @@ input{
     height: 40px;
     padding-left: 6px;
     box-sizing: border-box;
+}
+
+::ng-deep .mat-form-field-underline {
+    display: none;
 }
 
 .buttons{
