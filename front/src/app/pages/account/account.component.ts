@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ResponsiveService } from 'src/app/services/responsive.service';
+import { ResponsiveService } from 'src/app/services/responsive/responsive.service';
 
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.scss']
 })
-export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
+export class AccountComponent implements OnInit, OnDestroy{
 
   currentBreakpoint:"desktop" | "tablet" | "phone" | undefined;
   public responsiveSubscription! : Subscription;
@@ -33,10 +33,6 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy(): void {
     this.responsiveSubscription.unsubscribe();
-  }
-
-  ngAfterViewInit(): void {
-      
   }
 
 }
