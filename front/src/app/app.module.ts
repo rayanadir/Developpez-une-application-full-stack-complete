@@ -15,6 +15,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import {MatSelectModule} from '@angular/material/select';
 import {MatMenuModule} from '@angular/material/menu';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PostsComponent } from './pages/posts/posts.component';
@@ -32,7 +34,9 @@ const materialModule = [
   MatCardModule,
   MatSelectModule, 
   FormsModule,
-  MatMenuModule
+  MatMenuModule,
+  MatSidenavModule,
+  MatListModule
 ];
 
 @NgModule({
