@@ -2,7 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { LoginRequest } from 'src/app/interfaces/loginRequest.interface';
+import { SessionInformation } from 'src/app/interfaces/sessionInformation.interface';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { ResponsiveService } from 'src/app/services/responsive/responsive.service';
+import { SessionService } from 'src/app/services/session/session.service';
+import { PASSWORD_PATTERN } from 'src/app/constants/password.validator';
 
 
 @Component({
@@ -12,8 +17,11 @@ import { ResponsiveService } from 'src/app/services/responsive/responsive.servic
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
-  currentBreakpoint:"desktop" | "tablet" | "phone" | undefined;
+  public currentBreakpoint:"desktop" | "tablet" | "phone" | undefined;
   public responsiveSubscription! : Subscription;
+
+  public hide : boolean = true;
+  public onError : boolean = false;
 
   public form = this.fb.group({
     email: [
@@ -27,14 +35,22 @@ export class LoginComponent implements OnInit, OnDestroy {
       '',
       [
         Validators.required,
-        Validators.min(8)
+        Validators.min(8),
+        Validators.pattern(PASSWORD_PATTERN)
       ]
     ]
   });
 
-  constructor(private fb: FormBuilder, private responsiveService: ResponsiveService, private router: Router) { }
 
-  ngOnInit(): void {
+  constructor(
+    public fb: FormBuilder,
+    public responsiveService: ResponsiveService,
+    public router: Router,
+    public authService: AuthService,
+    public sessionService: SessionService,
+    ) { }
+
+  public ngOnInit(): void {
     /**
      * Observe current window format : "desktop" | "tablet" | "phone" | undefined
      */
@@ -47,10 +63,19 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
       this.responsiveSubscription.unsubscribe();
   }
 
-  
+  public submit(): void {
+    const loginRequest = this.form.value as LoginRequest;
+    this.authService.login(loginRequest).subscribe({
+      next: (response: SessionInformation) => {
+        this.sessionService.logIn(response);
+        this.router.navigate(["/posts"]);
+      },
+      error: () => this.onError = true,
+    })
+  }
 
 }
