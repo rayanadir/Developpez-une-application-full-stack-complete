@@ -1,7 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { ResponsiveService } from './services/responsive/responsive.service';
 
 @Component({
   selector: 'app-root',
@@ -14,12 +12,11 @@ export class AppComponent implements OnInit{
   status!:string;
 
   currentBreakpoint:"desktop" | "tablet" | "phone" | undefined;
-  public responsiveSubscription! : Subscription;
 
-  constructor(public router: Router, private responsiveService: ResponsiveService,){
+  constructor(public router: Router){
     this.router.events.subscribe((event:any) => {
       if(event instanceof NavigationEnd){
-        if(router.url == "/welcome"){
+        if(["/welcome","/404"].includes(router.url)){
           this.showHeader=false;
           this.status="welcome";
         }else{
