@@ -16,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,7 +47,7 @@ public class AuthController {
         String token = this.jwtUtils.generateJwtToken(authentication);
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         User user = this.userService.findByEmail(userDetails.getUsername());
-        return ResponseEntity.ok(new JwtResponse(token,user.getId(),user.getUsername()));
+        return ResponseEntity.ok(new JwtResponse(token,user.getId(),user.getUsername(), user.getEmail()));
     }
 
     @PostMapping("/register")
@@ -63,7 +64,7 @@ public class AuthController {
         String token = this.jwtUtils.generateJwtToken(authentication);
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         Long userId = this.userService.findByEmail(userDetails.getUsername()).getId();
-        return ResponseEntity.ok(new JwtResponse(token,userId,signupRequest.getUsername()));
+        return ResponseEntity.ok(new JwtResponse(token,userId,signupRequest.getUsername(), user.getEmail()));
     }
 
 }
