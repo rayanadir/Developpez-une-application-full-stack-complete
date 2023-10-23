@@ -9,6 +9,7 @@ import { TopicsComponent } from './pages/topics/topics.component';
 import { AccountComponent } from './pages/account/account.component';
 import { CreateComponent } from './pages/create/create.component';
 import { PostComponent } from './pages/post/post.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -52,9 +53,19 @@ const routes: Routes = [
     component: CreateComponent
   },
   {
-    title:" Post",
+    title:"Post",
     path:"post",
     component: PostComponent
+  },
+  {
+    title: "Not found",
+    path:"404",
+    component: NotFoundComponent,
+  },
+  {
+    title:"Not found",
+    path:"**",
+    redirectTo:"404"
   }
 ];
 
