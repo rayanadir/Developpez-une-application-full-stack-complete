@@ -10,13 +10,13 @@ import { ResponsiveService } from 'src/app/services/responsive/responsive.servic
 })
 export class PostsComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  currentBreakpoint:"desktop" | "tablet" | "phone" | undefined;
+  public currentBreakpoint:"desktop" | "tablet" | "phone" | undefined;
   public responsiveSubscription! : Subscription;
 
   Arr = Array; //Array type captured in a variable
   num:number = 5;
 
-  constructor(private responsiveService: ResponsiveService, private router: Router) {
+  constructor(public responsiveService: ResponsiveService, public router: Router) {
     this.currentBreakpoint = this.responsiveService.breakpointChanged();
     if(this.currentBreakpoint!=undefined){
       document.querySelector('main')?.setAttribute('format', this.currentBreakpoint);
@@ -25,7 +25,7 @@ export class PostsComponent implements OnInit, OnDestroy, AfterViewInit {
     }
    }
 
-  ngOnInit(): void {
+   public ngOnInit(): void {
     /**
      * Observe current window format : "desktop" | "tablet" | "phone" | undefined
      */
@@ -39,11 +39,11 @@ export class PostsComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
       this.responsiveSubscription.unsubscribe();
   }
 
-  ngAfterViewInit(): void {
+  public ngAfterViewInit(): void {
       if(this.currentBreakpoint!=undefined){
         document.querySelector('.main-posts')?.setAttribute('format', this.currentBreakpoint);
         document.querySelector('.create-filter')?.setAttribute('format', this.currentBreakpoint);
@@ -51,7 +51,12 @@ export class PostsComponent implements OnInit, OnDestroy, AfterViewInit {
       }
   }
 
-  navigate(){
+  public navigate(){
     this.router.navigate(['/create']);
+  }
+
+  public navigateToPost(){
+    this.router.navigate(['/post']);
+
   }
 }

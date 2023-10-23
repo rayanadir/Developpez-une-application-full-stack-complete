@@ -11,13 +11,13 @@ import { HeaderComponent } from 'src/app/components/header/header.component';
 })
 export class WelcomeComponent implements OnInit, OnDestroy {
 
-  currentBreakpoint:"desktop" | "tablet" | "phone" | undefined;
+  public currentBreakpoint:"desktop" | "tablet" | "phone" | undefined;
   public responsiveSubscription! : Subscription;
   public header! : HeaderComponent
 
-  constructor(public router: Router, private responsiveService: ResponsiveService,) { }
+  constructor(public router: Router, public responsiveService: ResponsiveService,) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     /**
      * Observe current window format : "desktop" | "tablet" | "phone" | undefined
      */
@@ -31,11 +31,11 @@ export class WelcomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
       this.responsiveSubscription.unsubscribe();
   }
 
-  navigate(path:string): void {
+  public navigate(path:string): void {
     this.router.navigate([`/${path}`]);
   }
 

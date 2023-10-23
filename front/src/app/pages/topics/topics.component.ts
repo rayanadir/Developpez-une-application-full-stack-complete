@@ -9,15 +9,15 @@ import { ResponsiveService } from 'src/app/services/responsive/responsive.servic
 })
 export class TopicsComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  currentBreakpoint:"desktop" | "tablet" | "phone" | undefined;
+  public currentBreakpoint:"desktop" | "tablet" | "phone" | undefined;
   public responsiveSubscription! : Subscription;
 
   Arr = Array; //Array type captured in a variable
   num:number = 5;
 
-  constructor(private responsiveService: ResponsiveService) {  }
+  constructor(public responsiveService: ResponsiveService) {  }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     /**
      * Observe current window format : "desktop" | "tablet" | "phone" | undefined
      */
@@ -30,11 +30,11 @@ export class TopicsComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
       this.responsiveSubscription.unsubscribe();
   }
 
-  ngAfterViewInit(): void {
+  public ngAfterViewInit(): void {
     if(this.currentBreakpoint!=undefined){
       document.querySelector('.main-topics')?.setAttribute('format', this.currentBreakpoint);
       document.querySelector('.topics')?.setAttribute('format', this.currentBreakpoint);

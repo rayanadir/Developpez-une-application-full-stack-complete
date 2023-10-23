@@ -10,15 +10,15 @@ import { ResponsiveService } from 'src/app/services/responsive/responsive.servic
 })
 export class PostComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  currentBreakpoint:"desktop" | "tablet" | "phone" | undefined;
+  public currentBreakpoint:"desktop" | "tablet" | "phone" | undefined;
   public responsiveSubscription! : Subscription;
 
   Arr = Array; //Array type captured in a variable
   num:number = 5;
 
-  constructor(private responsiveService: ResponsiveService, private router: Router) { }
+  constructor(public responsiveService: ResponsiveService, public router: Router) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     /**
      * Observe current window format : "desktop" | "tablet" | "phone" | undefined
      */
@@ -43,11 +43,11 @@ export class PostComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.responsiveSubscription.unsubscribe();
   }
 
-  ngAfterViewInit(): void {
+  public ngAfterViewInit(): void {
       if(this.currentBreakpoint!=undefined){
         document.querySelectorAll('.comments__comment').forEach((e) => {
           if(this.currentBreakpoint) e.setAttribute('format', this.currentBreakpoint)
@@ -59,7 +59,7 @@ export class PostComponent implements OnInit, OnDestroy, AfterViewInit {
       }
   }
 
-  back(){
+  public back(){
     this.router.navigate(['/posts']);
   }
 }

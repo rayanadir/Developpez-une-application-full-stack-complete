@@ -13,20 +13,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   @Input() status = '';
 
-  currentBreakpoint:"desktop" | "tablet" | "phone" | undefined;
+  public currentBreakpoint:"desktop" | "tablet" | "phone" | undefined;
   public responsiveSubscription! : Subscription;
   public screenHeight: any;
   public mainTagHeight: any;
-  showBackArrow: boolean=true;
-  showNavMenu: boolean=true;
+  public showBackArrow: boolean=true;
+  public showNavMenu: boolean=true;
 
-  authenticationRoutes = ["/login", "/register"];
-  authenticatedRoutes = ["/posts", "/topics", "/account", "/create", "/post"];
+  public authenticationRoutes = ["/login", "/register"];
+  public authenticatedRoutes = ["/posts", "/topics", "/account", "/create", "/post"];
 
 
   constructor(
     public location: Location,
-    private responsiveService: ResponsiveService,
+    public responsiveService: ResponsiveService,
     public router: Router
     ) {
       this.router.events.subscribe((event:any) => {
@@ -51,7 +51,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       })
      }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     /**
      * Observe current window format : "desktop" | "tablet" | "phone" | undefined
      */
@@ -70,20 +70,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
       this.responsiveSubscription.unsubscribe();
   }
 
-  navigateBack(){
+  public navigateBack(){
     this.router.navigate(["/welcome"]);
   }
 
-  click(element:string){
+  public click(element:string){
     this.setActive(element);
     this.router.navigate([`/${element}`]);  
   }
 
-  setActive(element:string){
+  public setActive(element:string){
     document.getElementById("nav_topics")?.setAttribute('active', "false");
     document.getElementById("nav_posts")?.setAttribute('active', "false");
     document.querySelector('.account_circle')?.setAttribute('active', "false");

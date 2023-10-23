@@ -10,12 +10,12 @@ import { ResponsiveService } from 'src/app/services/responsive/responsive.servic
 })
 export class CreateComponent implements OnInit, OnDestroy {
 
-  currentBreakpoint:"desktop" | "tablet" | "phone" | undefined;
+  public currentBreakpoint:"desktop" | "tablet" | "phone" | undefined;
   public responsiveSubscription! : Subscription;
 
-  constructor(private responsiveService: ResponsiveService, private router: Router) { }
+  constructor(public responsiveService: ResponsiveService, public router: Router) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     /**
      * Observe current window format : "desktop" | "tablet" | "phone" | undefined
      */
@@ -31,11 +31,11 @@ export class CreateComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
       this.responsiveSubscription.unsubscribe()
   }
 
-  back(){
+  public back(){
     this.router.navigate(['/posts'])
   }
 
