@@ -46,6 +46,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
     ]
   })
 
+  public hide : boolean = true;
+
   constructor(
     public responsiveService: ResponsiveService,
     public fb: FormBuilder,
