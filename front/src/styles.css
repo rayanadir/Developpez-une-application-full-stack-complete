@@ -26,15 +26,14 @@ body{
 }
 
 .mat-form-field-appearance-fill .mat-form-field-flex {
-    /*background-color: white;*/
     padding: 0;
 }
 
-app-header[ng-reflect-status="authentication"] .header-element[format="phone"],.header-element[format="tablet"]{
+app-header[ng-reflect-status="authentication"] .header-element[format="phone"], app-header[ng-reflect-status="authentication"] .header-element[format="tablet"]{
     flex-direction: column-reverse;
 }
 
-app-header[ng-reflect-status="authentication"] .logo_div[format="phone"],.logo_div[format="tablet"]{
+app-header[ng-reflect-status="authentication"] .logo_div[format="phone"],app-header[ng-reflect-status="authentication"] .logo_div[format="tablet"]{
     justify-content: center;
     border-bottom: 0;
 }
@@ -49,4 +48,17 @@ app-header[ng-reflect-status="authentication"] .logo_div[format="phone"],.logo_d
 
 .mat-form-field-wrapper{
     padding-bottom: 0;
+}
+
+.password .mat-form-field-flex{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 17px;
+}
+
+.password .mat-form-field-suffix{
+    position: absolute;
+    right: 0;
+    top: 16px;
 }
