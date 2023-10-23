@@ -4,7 +4,9 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.lang.NonNull;
 
 import javax.validation.constraints.*;
+import lombok.Data;
 
+@Data
 public class SignupRequest {
 
     @NonNull
@@ -16,6 +18,7 @@ public class SignupRequest {
     private String username;
 
     @NonNull
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+!*?=-])(?=\\S+$).{8,}$")
     @Length(min = 8, max = 40)
     private String password;
 
