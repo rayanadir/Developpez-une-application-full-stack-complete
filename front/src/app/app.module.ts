@@ -25,6 +25,7 @@ import { AccountComponent } from './pages/account/account.component';
 import { CreateComponent } from './pages/create/create.component';
 import { PostComponent } from './pages/post/post.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { HttpClientModule } from '@angular/common/http';
 
 const materialModule = [
   MatButtonModule,
@@ -59,6 +60,7 @@ const materialModule = [
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     ...materialModule
   ],
   providers: [],
