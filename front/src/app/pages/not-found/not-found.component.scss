@@ -1,0 +1,33 @@
+.not-found{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.not-found[format="phone"]{
+    padding-top: 5rem;
+}
+
+.not-found[format="tablet"]{
+    padding-top: 3rem;
+}
+
+.title{
+    text-align: center;
+}
+
+.img[format="tablet"]{
+    width: 300px;
+}
+
+.img[format="phone"]{
+    width: 200px;
+}
+
+.title[format="tablet"]{
+    font-size: 20px;
+}
+
+.title[format="phone"]{
+    font-size: 20px;
+}
