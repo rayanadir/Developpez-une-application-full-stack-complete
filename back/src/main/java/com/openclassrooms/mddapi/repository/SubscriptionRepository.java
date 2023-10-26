@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * SubscriptionRepository interface
+ */
 @Repository
 public interface SubscriptionRepository extends JpaRepository<Subscription, Long> {
     Optional<List<Subscription>> findByUser(User user);

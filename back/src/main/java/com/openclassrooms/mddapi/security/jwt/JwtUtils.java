@@ -11,16 +11,21 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+import static com.openclassrooms.mddapi.constants.Constants.EXPIRATION_TIME;
+import static com.openclassrooms.mddapi.constants.Constants.SECRET;
+
+/**
+ * JwtUtils class
+ */
 @Component
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-    @Value("${oc.app.jwtSecret}")
-    private String jwtSecret;
-
-    @Value("${oc.app.jwtExpirationMs}")
-    private int jwtExpirationMs;
-
+    /**
+     * Generate a JWT token
+     * @param authentication
+     * @return String (token)
+     */
     public String generateJwtToken(Authentication authentication) {
 
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
@@ -28,18 +33,28 @@ public class JwtUtils {
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
                 .setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .setExpiration(new Date((new Date()).getTime() + EXPIRATION_TIME))
+                .signWith(SignatureAlgorithm.HS512, SECRET)
                 .compact();
     }
 
+    /**
+     * Get username from token
+     * @param token
+     * @return String (username)
+     */
     public String getUserNameFromJwtToken(String token) {
-        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+        return Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token).getBody().getSubject();
     }
 
+    /**
+     * Validate JWT token
+     * @param authToken
+     * @return boolean (true | false)
+     */
     public boolean validateJwtToken(String authToken) {
         try {
-            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
+            Jwts.parser().setSigningKey(SECRET).parseClaimsJws(authToken);
             return true;
         } catch (SignatureException e) {
             logger.error("Invalid JWT signature: {}", e.getMessage());
@@ -54,5 +69,14 @@ public class JwtUtils {
         }
 
         return false;
+    }
+
+    /**
+     * Get token properties
+     * @param token
+     * @return Claims
+     */
+    public Claims getClaims(String token){
+        return Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token).getBody();
     }
 }

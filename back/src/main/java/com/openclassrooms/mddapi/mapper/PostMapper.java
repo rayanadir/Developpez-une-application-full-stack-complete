@@ -17,6 +17,9 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * PostMapper class
+ */
 @Component
 @Mapper(componentModel = "spring", uses = {PostService.class}, imports = {Arrays.class, Collectors.class, Post.class, User.class, Collections.class, Optional.class})
 public abstract class PostMapper implements EntityMapper<PostDTO, Post> {
@@ -27,6 +30,11 @@ public abstract class PostMapper implements EntityMapper<PostDTO, Post> {
     @Autowired
     private UserService userService;
 
+    /**
+     * Convert PostDTO to Post entity
+     * @param postDTO DTO
+     * @return Post entity
+     */
     @Mappings({
             @Mapping(source = "title", target = "title"),
             @Mapping(source = "content", target = "content"),
@@ -37,6 +45,11 @@ public abstract class PostMapper implements EntityMapper<PostDTO, Post> {
     })
     public abstract Post toEntity(PostDTO postDTO);
 
+    /**
+     * Convert "Post" entity to PostDTO
+     * @param post entity
+     * @return PostDTO
+     */
     @Mappings({
             @Mapping(source = "title", target="title"),
             @Mapping(source = "content", target= "content"),

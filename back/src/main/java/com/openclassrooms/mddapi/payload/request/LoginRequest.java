@@ -1,11 +1,16 @@
 package com.openclassrooms.mddapi.payload.request;
 
+import lombok.Data;
 import lombok.NonNull;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
 
+/**
+ * LoginRequest class
+ */
+@Data
 public class LoginRequest {
 
     @NonNull

@@ -14,6 +14,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
+/**
+ * CommentMapper class
+ */
 @Component
 @Mapper(componentModel = "spring", uses={CommentService.class}, imports = {Arrays.class, Collections.class, Post.class})
 public abstract class CommentMapper implements EntityMapper<CommentDTO, Comment> {
@@ -24,6 +27,11 @@ public abstract class CommentMapper implements EntityMapper<CommentDTO, Comment>
     @Autowired
     private UserService userService;
 
+    /**
+     * Convert "Comment" entity to CommentDTO
+     * @param comment entity
+     * @return CommentDTO
+     */
     @Mappings({
             @Mapping(source = "content", target = "content"),
             @Mapping(source = "created_at", target = "created_at"),

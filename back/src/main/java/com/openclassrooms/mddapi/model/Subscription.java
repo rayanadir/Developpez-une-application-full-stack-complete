@@ -1,9 +1,14 @@
 package com.openclassrooms.mddapi.model;
 
+import lombok.Data;
 import lombok.NonNull;
 
 import javax.persistence.*;
 
+/**
+ * Subscription entity
+ */
+@Data
 @Entity
 @Table(name = "subscription")
 public class Subscription {
@@ -26,6 +31,8 @@ public class Subscription {
         this.topic = topic;
         this.user = user;
     }
+
+    public Subscription(){ }
 
     public Long getId() {
         return id;

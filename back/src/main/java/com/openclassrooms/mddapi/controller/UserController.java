@@ -10,6 +10,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Class that handles "User" controller
+ */
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -19,6 +22,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * Gets user information
+     * @return ResponseEntity (OK or badRequest)
+     */
     @GetMapping()
     public ResponseEntity<?> me(){
         try{
@@ -33,6 +40,12 @@ public class UserController {
         }
     }
 
+    /**
+     * Updates a user information
+     * @param id id of the user to update
+     * @param userDTO Object that contains user request
+     * @return ResponseEntity (OK or badRequest)
+     */
     @PutMapping("{id}")
     public ResponseEntity<?> update(@PathVariable("id") String id, @RequestBody UserDTO userDTO){
         try{

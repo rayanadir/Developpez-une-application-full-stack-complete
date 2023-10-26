@@ -9,6 +9,9 @@ import com.openclassrooms.mddapi.model.Comment;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * CommentRepository interface
+ */
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
     Optional<List<Comment>> findByPost(Post post);

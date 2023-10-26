@@ -18,6 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Class that handles "Subscription" controller
+ */
 @RestController
 @RequestMapping("/api/subscription")
 public class SubscriptionController {
@@ -34,8 +37,8 @@ public class SubscriptionController {
 
     /**
      * Click on subscribe/unsubscribe button
-     * @param id
-     * @return ResponseEntity
+     * @param id of the topic
+     * @return ResponseEntity (OK or badRequest)
      */
     @PostMapping("/{id}")
     public ResponseEntity<?> clickButton(@PathVariable("id") String id){
@@ -48,13 +51,11 @@ public class SubscriptionController {
             // If not subscribed
             if(subscription.isEmpty()){
                 this.subscriptionService.subscribe(new Subscription(topic,user));
-                MessageResponse res = new MessageResponse("Subscribed !");
-                return ResponseEntity.ok().body(res);
+                return ResponseEntity.ok().build();
             }
             // If already subscribed
             this.subscriptionService.unsubscribe(subscription.get().getId());
-            MessageResponse res = new MessageResponse("Unsubscribed !");
-            return ResponseEntity.ok().body(res);
+            return ResponseEntity.ok().build();
         }catch (NumberFormatException e){
             return ResponseEntity.badRequest().build();
         }
@@ -62,7 +63,7 @@ public class SubscriptionController {
 
     /**
      * Get user subscriptions
-     * @return ResponseEntity
+     * @return ResponseEntity (OK or badRequest)
      */
     @GetMapping("")
     public ResponseEntity<?> findSubscriptionsByUser(){

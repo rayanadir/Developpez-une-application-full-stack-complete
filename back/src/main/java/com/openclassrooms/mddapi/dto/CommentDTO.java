@@ -8,6 +8,9 @@ import org.springframework.lang.NonNull;
 
 import java.time.LocalDateTime;
 
+/**
+ * CommentDTO class
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

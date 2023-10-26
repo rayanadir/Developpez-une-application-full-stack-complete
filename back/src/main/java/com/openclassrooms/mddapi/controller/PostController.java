@@ -17,6 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Class that handles "Post" controller
+ */
 @RestController
 @RequestMapping("/api/post")
 public class PostController {
@@ -32,12 +35,21 @@ public class PostController {
 
     private PostMapper postMapper;
 
+    /**
+     * Get all posts
+     * @return ResponseEntity (OK)
+     */
     @GetMapping()
     public ResponseEntity<?> findAll(){
         List<Post> posts = this.postService.findAllPosts();
         return ResponseEntity.ok().body(this.postMapper.toDto(posts));
     }
 
+    /**
+     * Find a post by its id
+     * @param id id of the post
+     * @return ResponseEntity (OK or notFound or badRequest)
+     */
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable("id") String id){
         try {
@@ -50,6 +62,11 @@ public class PostController {
         }
     }
 
+    /**
+     * Create a post
+     * @param postDTO Object that contains post request
+     * @return ResponseEntity (OK)
+     */
     @PostMapping()
     public ResponseEntity<?> createPost(@RequestBody PostDTO postDTO){
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -59,6 +76,7 @@ public class PostController {
         return ResponseEntity.ok().body(this.postMapper.toDTO(post));
     }
 
+    /*
     @GetMapping("/feed")
     public ResponseEntity<?> findUserSubscriptions(){
         try{
@@ -87,5 +105,5 @@ public class PostController {
         }catch (NumberFormatException e){
             return ResponseEntity.badRequest().build();
         }
-    }
+    }*/
 }

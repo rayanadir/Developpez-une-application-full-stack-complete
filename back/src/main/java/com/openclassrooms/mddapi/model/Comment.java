@@ -1,12 +1,18 @@
 package com.openclassrooms.mddapi.model;
 
+import lombok.Data;
 import lombok.NonNull;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
+/**
+ * Comment entity
+ */
+@Data
 @Entity
 @Table(name = "comments")
 public class Comment {
@@ -26,6 +32,7 @@ public class Comment {
 	private User user;
 
 	@NonNull
+	@Size(max = 2000)
 	@Column(name = "content")
 	private String content;
 
@@ -36,6 +43,8 @@ public class Comment {
 	@UpdateTimestamp
 	@Column(name= "updated_at")
 	private LocalDateTime updated_at;
+
+	public Comment(){ }
 
 	public Long getId() {
 		return id;

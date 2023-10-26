@@ -18,6 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Class that handles "Comment" controller
+ */
 @RestController
 @RequestMapping("/api/comment")
 public class CommentController {
@@ -33,6 +36,11 @@ public class CommentController {
 
     private CommentMapper commentMapper;
 
+    /**
+     * Create a comment
+     * @param commentDTO Object that contains comment request
+     * @return ResponseEntity (OK)
+     */
     @PostMapping()
     public ResponseEntity<?> createComment(@RequestBody CommentDTO commentDTO){
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -50,6 +58,11 @@ public class CommentController {
         return ResponseEntity.ok().body(this.commentMapper.toDTO(comment));
     }
 
+    /**
+     * Get all comments of a post
+     * @param postId id of the post
+     * @return ResponseEntity (OK or badRequest)
+     */
     @GetMapping("/{postId}")
     public ResponseEntity<?> getAllCommentsByPostId(@PathVariable("postId") String postId){
         try{

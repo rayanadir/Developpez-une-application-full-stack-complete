@@ -9,32 +9,65 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+/**
+ * Class that handles user features
+ */
 @Service
-public class UserService {
+public class UserService implements UserDetailsService{
 
     @Autowired
     private UserRepository userRepository;
 
 
+    /**
+     * Finds a user by its email
+     * @param email user email
+     * @return User
+     */
     public User findByEmail(String email){
-        return this.userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Email not found : " + email));
+        return this.userRepository.findByEmail(email);
     }
 
-    public User findById(Long id){
-        return this.userRepository.findById(id).orElseThrow(() -> new RuntimeException("Error ! User not found"));
-    }
-
+    /**
+     * Creates a user
+     * @param user
+     * @return User
+     */
     public User createUser(User user){
         return this.userRepository.save(user);
     }
 
+    /**
+     * Checks if email already exists
+     * @param email
+     * @return boolean
+     */
     public Boolean existsByEmail(String email){
         return this.userRepository.existsByEmail(email);
     }
 
+    /**
+     * Updates the user
+     * @param id of the user to update
+     * @param user
+     * @return User
+     */
     public User update(Long id, User user){
         user.setId(id);
         return this.userRepository.save(user);
     }
 
+    /**
+     * Get user by email
+     * @param username email of the user
+     * @return UserDetails
+     * @throws UsernameNotFoundException
+     */
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = this.userRepository.findByEmail(username);
+        if(user==null)
+            throw new UsernameNotFoundException("User doesn't exist by this name");
+        return user;
+    }
 }

@@ -9,6 +9,9 @@ import com.openclassrooms.mddapi.model.Post;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * PostRepository interface
+ */
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long>{
     Optional<List<Post>> findByTopic(Topic topic);

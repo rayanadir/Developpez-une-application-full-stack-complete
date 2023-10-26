@@ -7,6 +7,9 @@ import org.springframework.lang.NonNull;
 
 import java.time.LocalDateTime;
 
+/**
+ * PostDTO class
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

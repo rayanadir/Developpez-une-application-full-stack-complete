@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import com.openclassrooms.mddapi.model.Topic;
 
+/**
+ * Class that handles "Topic" controller
+ */
 @RestController
 @RequestMapping("/api/topic")
 public class TopicController {
@@ -25,6 +28,10 @@ public class TopicController {
 		this.topicService = topicService;		
 	}
 
+	/**
+	 * Get all topics
+	 * @return ResponseEntity (OK or badRequest)
+	 */
 	@GetMapping()
 	public ResponseEntity<?> findAll() {
 		try{
@@ -41,6 +48,11 @@ public class TopicController {
 		}
 	}
 
+	/**
+	 * Get a topic by its id
+	 * @param id id of the topic
+	 * @return ResponseEntity (OK or badRequest)
+	 */
 	@GetMapping("/{id}")
 	public ResponseEntity<?> findById(@PathVariable("id") String id){
 		try{
@@ -53,10 +65,11 @@ public class TopicController {
 		}
 	}
 
+	/*
 	@PostMapping()
 	public ResponseEntity<?> create(@RequestBody TopicDTO topicDTO){
 		Topic topic = this.topicService.createTopic(this.topicMapper.toEntity(topicDTO));
 		return ResponseEntity.ok().body(this.topicMapper.toDto(topic));
-	}
+	}*/
 	
 }

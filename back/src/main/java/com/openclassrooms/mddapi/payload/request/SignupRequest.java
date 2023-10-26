@@ -6,6 +6,9 @@ import org.springframework.lang.NonNull;
 import javax.validation.constraints.*;
 import lombok.Data;
 
+/**
+ * SignupRequest class
+ */
 @Data
 public class SignupRequest {
 
