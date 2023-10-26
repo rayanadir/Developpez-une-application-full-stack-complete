@@ -15,7 +15,6 @@ public class PasswordValidatorService {
      * @return boolean (true | false)
      */
     public boolean isValidPassword(String password){
-        String regex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&=+-^#]).{8,}$";
         Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
         if(password==null)
             return false;
