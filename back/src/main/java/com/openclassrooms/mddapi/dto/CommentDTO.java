@@ -17,19 +17,31 @@ import java.time.LocalDateTime;
 public class CommentDTO {
 
     @NonNull
+    private Long id;
+
+    @NonNull
     private Long postId;
 
     @NonNull
-    private Long userId;
+    private User user;
 
     @NonNull
     private String content;
 
     @NonNull
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     @NonNull
-    private LocalDateTime updated_at;
+    private LocalDateTime updatedAt;
+
+    @NonNull
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(@NonNull Long id) {
+        this.id = id;
+    }
 
     @NonNull
     public Long getPostId() {
@@ -41,12 +53,12 @@ public class CommentDTO {
     }
 
     @NonNull
-    public Long getUserId(){
-        return userId;
+    public User getUser(){
+        return user;
     }
 
-    public void setUserId(Long userId){
-        this.userId = userId;
+    public void setUser(User user){
+        this.user = user;
     }
 
     @NonNull
@@ -59,20 +71,20 @@ public class CommentDTO {
     }
 
     @NonNull
-    public LocalDateTime getCreated_at() {
-        return created_at;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at(@NonNull LocalDateTime created_at) {
-        this.created_at = created_at;
+    public void setCreatedAt(@NonNull LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     @NonNull
-    public LocalDateTime getUpdated_at() {
-        return updated_at;
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdated_at(@NonNull LocalDateTime updated_at) {
-        this.updated_at = updated_at;
+    public void setUpdatedAt(@NonNull LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

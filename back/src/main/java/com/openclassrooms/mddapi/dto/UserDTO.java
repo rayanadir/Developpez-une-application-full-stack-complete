@@ -26,18 +26,18 @@ public class UserDTO {
 
     @NonNull
     @Length(min=3)
-    private String username;
+    private String name;
 
     @NonNull
     @Length(min=8)
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$")
+    //@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$")
     private String password;
 
     @NonNull
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     @NonNull
-    private LocalDateTime updated_at;
+    private LocalDateTime updatedAt;
 
     @NonNull
     public Long getId() {
@@ -58,14 +58,15 @@ public class UserDTO {
     }
 
     @NonNull
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(@NonNull String username) {
-        this.username = username;
+    public void setName(@NonNull String name) {
+        this.name = name;
     }
 
+    /*
     @NonNull
     public String getPassword() {
         return password;
@@ -73,23 +74,23 @@ public class UserDTO {
 
     public void setPassword(@NonNull String password) {
         this.password = password;
+    }*/
+
+    @NonNull
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(@NonNull LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     @NonNull
-    public LocalDateTime getCreated_at() {
-        return created_at;
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setCreated_at(@NonNull LocalDateTime created_at) {
-        this.created_at = created_at;
-    }
-
-    @NonNull
-    public LocalDateTime getUpdated_at() {
-        return updated_at;
-    }
-
-    public void setUpdated_at(@NonNull LocalDateTime updated_at) {
-        this.updated_at = updated_at;
+    public void setUpdatedAt(@NonNull LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

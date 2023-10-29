@@ -1,5 +1,7 @@
 package com.openclassrooms.mddapi.dto;
 
+import com.openclassrooms.mddapi.model.Topic;
+import com.openclassrooms.mddapi.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,7 +23,10 @@ public class PostDTO {
     private Long topic_id;
 
     @NonNull
-    private Long author_id;
+    private Topic topic;
+
+    @NonNull
+    private User author;
 
     @NonNull
     private String title;
@@ -30,10 +35,10 @@ public class PostDTO {
     private String content;
 
     @NonNull
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     @NonNull
-    private LocalDateTime updated_at;
+    private LocalDateTime updatedAt;
 
     @NonNull
     public Long getId() {
@@ -54,12 +59,21 @@ public class PostDTO {
     }
 
     @NonNull
-    public Long getAuthor_id() {
-        return author_id;
+    public Topic getTopic() {
+        return topic;
     }
 
-    public void setAuthor_id(@NonNull Long author_id) {
-        this.author_id = author_id;
+    public void setTopic(@NonNull Topic topic) {
+        this.topic = topic;
+    }
+
+    @NonNull
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(@NonNull User author) {
+        this.author = author;
     }
 
     @NonNull
@@ -81,20 +95,20 @@ public class PostDTO {
     }
 
     @NonNull
-    public LocalDateTime getCreated_at() {
-        return created_at;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at(@NonNull LocalDateTime created_at) {
-        this.created_at = created_at;
+    public void setCreatedAt(@NonNull LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     @NonNull
-    public LocalDateTime getUpdated_at() {
-        return updated_at;
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdated_at(@NonNull LocalDateTime updated_at) {
-        this.updated_at = updated_at;
+    public void setUpdatedAt(@NonNull LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }
