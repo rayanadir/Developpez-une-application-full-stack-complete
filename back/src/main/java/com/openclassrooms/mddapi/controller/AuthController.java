@@ -16,16 +16,14 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
 /**
  * Class that handles "Authentication" controller
  */
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -50,6 +48,7 @@ public class AuthController {
      * @param loginRequest  Login request object that contains credentials
      * @return ResponseEntity (OK or error)
      */
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest){
         Authentication authentication = this.authenticationManager.authenticate(
@@ -67,6 +66,7 @@ public class AuthController {
      * @param signupRequest Signup request object that contains credentials
      * @return ResponseEntity (OK or badRequest)
      */
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody SignupRequest signupRequest){
         if(this.userService.existsByEmail(signupRequest.getEmail())){
