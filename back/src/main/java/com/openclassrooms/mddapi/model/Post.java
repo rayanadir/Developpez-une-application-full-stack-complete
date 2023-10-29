@@ -30,8 +30,12 @@ public class Post {
 
 	@NonNull
 	@ManyToOne
-	@JoinColumn(name = "topic_id")
+	@JoinColumn(name = "topic")
 	private Topic topic;
+
+	@NonNull
+	@JoinColumn(name = "topic_id")
+	private Long topic_id;
 
 	@NonNull
 	@ManyToOne
@@ -48,12 +52,13 @@ public class Post {
 	@Column(name="content")
 	private String content;
 
+	@CreatedDate
 	@Column(name= "created_at")
-	private LocalDateTime created_at;
+	private LocalDateTime createdAt;
 
 	@UpdateTimestamp
 	@Column(name= "updated_at")
-	private LocalDateTime updated_at;
+	private LocalDateTime updatedAt;
 
 	public Post(){ }
 
@@ -71,6 +76,14 @@ public class Post {
 
 	public void setTopic(Topic topic) {
 		this.topic = topic;
+	}
+
+	public Long getTopic_id() {
+		return topic_id;
+	}
+
+	public void setTopic_id(Long topic_id) {
+		this.topic_id = topic_id;
 	}
 
 	public User getAuthor() {
@@ -97,20 +110,20 @@ public class Post {
 		this.content = content;
 	}
 
-	public LocalDateTime getCreated_at() {
-		return created_at;
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
 	}
 
-	public void setCreated_at(LocalDateTime created_at) {
-		this.created_at = created_at;
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
 	}
 
-	public LocalDateTime getUpdated_at() {
-		return updated_at;
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
 	}
 
-	public void setUpdated_at(LocalDateTime updated_at) {
-		this.updated_at = updated_at;
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 
 }
