@@ -1,14 +1,14 @@
 package com.openclassrooms.mddapi.controller;
 
 import com.openclassrooms.mddapi.dto.TopicDTO;
-import com.openclassrooms.mddapi.mapper.TopicMapper;
 import com.openclassrooms.mddapi.model.Subscription;
 import com.openclassrooms.mddapi.model.Topic;
 import com.openclassrooms.mddapi.model.User;
-import com.openclassrooms.mddapi.payload.response.MessageResponse;
+import com.openclassrooms.mddapi.payload.response.SubscriptionResponse;
 import com.openclassrooms.mddapi.service.SubscriptionService;
 import com.openclassrooms.mddapi.service.TopicService;
 import com.openclassrooms.mddapi.service.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,29 +33,31 @@ public class SubscriptionController {
     @Autowired
     private TopicService topicService;
 
-    private TopicMapper topicMapper;
 
     /**
      * Click on subscribe/unsubscribe button
      * @param id of the topic
      * @return ResponseEntity (OK or badRequest)
      */
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/{id}")
     public ResponseEntity<?> clickButton(@PathVariable("id") String id){
         try{
             String email = SecurityContextHolder.getContext().getAuthentication().getName();
             User user = this.userService.findByEmail(email);
             Topic topic = this.topicService.findTopicById(Long.valueOf(id));
+            if(topic==null)
+                return ResponseEntity.badRequest().build();
             Optional<Subscription> subscription = this.subscriptionService.findByUserAndTopic(user, topic);
 
             // If not subscribed
             if(subscription.isEmpty()){
                 this.subscriptionService.subscribe(new Subscription(topic,user));
-                return ResponseEntity.ok().build();
+                return ResponseEntity.ok().body(new SubscriptionResponse("Subscribed !", topic));
             }
             // If already subscribed
             this.subscriptionService.unsubscribe(subscription.get().getId());
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok().body(new SubscriptionResponse("Unsubscribed !", topic));
         }catch (NumberFormatException e){
             return ResponseEntity.badRequest().build();
         }
@@ -65,6 +67,7 @@ public class SubscriptionController {
      * Get user subscriptions
      * @return ResponseEntity (OK or badRequest)
      */
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("")
     public ResponseEntity<?> findSubscriptionsByUser(){
         try{
@@ -78,8 +81,10 @@ public class SubscriptionController {
 
             // If subscriptions
             List<TopicDTO> list = new ArrayList<>();
+            ModelMapper modelMapper = new ModelMapper();
+
             for(Subscription subscription: subscriptions.get()){
-                list.add(this.topicMapper.toDto(subscription.getTopic()));
+                list.add(modelMapper.map(subscription.getTopic(), TopicDTO.class));
             }
             return ResponseEntity.ok().body(list);
         }catch(NumberFormatException e){
