@@ -1,5 +1,6 @@
 package com.openclassrooms.mddapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
@@ -28,26 +29,31 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //@JsonIgnore
     @NonNull
     @Length(min=3)
     @Column(name="name")
     private String name;
 
+    @JsonIgnore
     @NonNull
     @Email(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}", flags = Pattern.Flag.CASE_INSENSITIVE)
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
+    @JsonIgnore
     @NonNull
     @Length(min=8)
     //@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+!*?=-])(?=\\S+$).{8,}$")
     @Column(name="password")
     private String password;
 
+    @JsonIgnore
     @CreatedDate
     @Column(name="created_at", updatable = false)
     private LocalDateTime createdAt;
 
+    @JsonIgnore
     @UpdateTimestamp
     @Column(name="updated_at")
     private LocalDateTime updatedAt;
@@ -60,6 +66,10 @@ public class User implements UserDetails {
         this.updatedAt = updatedAt;
     }
 
+    public User(Long id, String name){
+        this.id = id;
+        this.name=name;
+    }
     public User(){ }
 
     public Long getId() {
@@ -110,31 +120,37 @@ public class User implements UserDetails {
         this.updatedAt = updatedAt;
     }
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return new ArrayList<>();
     }
 
+    @JsonIgnore
     @Override
     public String getUsername() {
         return this.email;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isEnabled() {
         return true;
