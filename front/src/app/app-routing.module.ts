@@ -10,6 +10,8 @@ import { AccountComponent } from './pages/account/account.component';
 import { CreateComponent } from './pages/create/create.component';
 import { PostComponent } from './pages/post/post.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { UnauthGuard } from './guards/unauth.guard';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -20,42 +22,50 @@ const routes: Routes = [
   {
     title: "Welcome",
     path: "welcome",
-    component: WelcomeComponent
+    component: WelcomeComponent,
+    canActivate: [UnauthGuard],
   },
   { 
     title: "Login",
     path: "login",
-    component: LoginComponent 
+    component: LoginComponent,
+    canActivate: [UnauthGuard],
   },
   { 
     title: "Register",
     path: "register",
-    component: RegisterComponent 
+    component: RegisterComponent,
+    canActivate: [UnauthGuard], 
   },
   { 
     title: "Posts",
     path: "posts",
-    component: PostsComponent
+    component: PostsComponent,
+    canActivate: [AuthGuard],
   },
   { 
     title: "Topics",
     path: "topics",
-    component: TopicsComponent
+    component: TopicsComponent,
+    canActivate: [AuthGuard],
   },
   {
     title: "Account",
     path: "account",
-    component: AccountComponent
+    component: AccountComponent,
+    canActivate: [AuthGuard],
   },
   {
     title:"Create Post",
     path: "create",
-    component: CreateComponent
+    component: CreateComponent,
+    canActivate: [AuthGuard],
   },
   {
     title:"Post",
-    path:"post",
-    component: PostComponent
+    path:"post/:id",
+    component: PostComponent,
+    canActivate: [AuthGuard],
   },
   {
     title: "Not found",
