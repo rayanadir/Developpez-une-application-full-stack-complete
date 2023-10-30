@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Subscription } from 'src/app/interfaces/subscription.interface';
 import { Topic } from 'src/app/interfaces/topic.interface';
 
 @Injectable({
@@ -13,8 +14,8 @@ export class SubscriptionsService {
   constructor(private httpClient: HttpClient) { }
 
   // click on subscribe/unsubscribe button
-  public click(id: string): Observable<"Subscribed !" | "Unsubscribed !"> {
-    return this.httpClient.post<"Subscribed !" | "Unsubscribed !">(`${this.pathService}/${id}`, id);
+  public click(id: number): Observable<Subscription> {
+    return this.httpClient.post<Subscription>(`${this.pathService}/${id}`, id);
   }
 
   public all(): Observable<Topic[]>{

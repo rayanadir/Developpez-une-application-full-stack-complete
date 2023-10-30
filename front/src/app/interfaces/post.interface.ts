@@ -1,9 +1,13 @@
+import { Topic } from "./topic.interface";
+import { User } from "./user.interface";
+
 export interface Post{
     id: number,
-    topic_id: number,
-    author_id: number,
+    topic: Topic,
+    author: User,
     title: string,
     content: string,
-    created_at: Date,
-    updated_at: Date,
+    topic_id: number,
+    createdAt: Date,
+    updatedAt: Date,
 }

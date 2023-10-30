@@ -25,14 +25,14 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   public form = this.fb.group({
     email: [
-      '',
+      'rayan@rayan.com',
       [
         Validators.required,
         Validators.email
       ]
     ],
     password: [
-      '',
+      'Motdepasse*1',
       [
         Validators.required,
         Validators.min(8),
@@ -71,6 +71,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     const loginRequest = this.form.value as LoginRequest;
     this.authService.login(loginRequest).subscribe({
       next: (response: SessionInformation) => {
+        localStorage.setItem("token", response.token);
         this.sessionService.logIn(response);
         this.router.navigate(["/posts"]);
       },

@@ -5,35 +5,29 @@
                 <img src="../../../assets/Arrow 9.png" (click)="back()" class="back" alt="back">
                 <mat-card-title class="title">Créer un nouvel article</mat-card-title>
             </mat-card-header>
-            <form class="create-form">
+            <form class="create-form" [formGroup]="postForm" (ngSubmit)="submit()">
                 <mat-card-content class="create-content" fxLayout="column">
                     
                     <mat-form-field class="remove-arrow field" appearance="fill">
-                        <mat-select matNativeControl disableRipple placeholder="Sélectionner un thème" floatlLabel="never" class="select">
-                            <mat-option value="1">Option 1</mat-option>
-                            <mat-option value="2">Option 2</mat-option>
-                            <mat-option value="3">Option 3</mat-option>
+                        <mat-select matNativeControl disableRipple placeholder="Sélectionner un thème" floatlLabel="never" class="select" formControlName="topic_id">
+                            <mat-option *ngFor="let topic of topics$ | async" [value]="topic.id">
+                                {{topic.name}}
+                            </mat-option>
                         </mat-select>
+
                     </mat-form-field>
 
                     <mat-form-field class="field"  appearance="fill">
-                        <input matInput type="text" placeholder="Titre de l'article">
+                        <input matInput type="text" placeholder="Titre de l'article" formControlName="title">
                     </mat-form-field>
                     
                     <mat-form-field class="field"  appearance="fill">
-                        <textarea matInput placeholder="Contenu de l'article" rows="10"></textarea>
+                        <textarea matInput placeholder="Contenu de l'article" rows="10" formControlName="content"></textarea>
                     </mat-form-field>
-                    <button mat-raised-button>Créer</button>
+                    <button mat-raised-button type="submit" [disabled]="postForm.invalid">Créer</button>
                 </mat-card-content>
                 
             </form>
         </mat-card>
     </section>
-
-        <!--<mat-select disableRipple placeholder="Sélectionner un thème" floatlLabel="never">
-            <mat-option value="1">Option 1</mat-option>
-            <mat-option value="2">Option 2</mat-option>
-            <mat-option value="3">Option 3</mat-option>
-        </mat-select>-->
-    
 </main>

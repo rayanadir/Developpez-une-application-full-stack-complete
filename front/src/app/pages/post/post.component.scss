@@ -1,7 +1,7 @@
 main{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    //align-items: center;
     margin: auto;
     padding: 2rem 0;
 }
@@ -85,7 +85,8 @@ hr[format="phone"]{
 }
 
 .comments[format="phone"],.post[format="phone"]{
-    width: 95%;
+    width: 90%;
+    margin: auto;
 }
 
 .comments{
@@ -118,6 +119,7 @@ hr[format="phone"]{
     &__comment[format="phone"]{
         flex-direction: row-reverse;
         align-items: flex-end;
+        justify-content: space-between;
     }
 }
 
@@ -147,15 +149,12 @@ hr[format="phone"]{
             &__send{
                 height: min-content;
             }
-            &__send:hover{
-                cursor: pointer;
-            }
         }
     }
 }
 
 .comment[format="phone"]{
-    width: 98%;
+    width: 100%;
 }
 
 .comment[format="tablet"]{
@@ -167,9 +166,28 @@ hr[format="phone"]{
     bottom: 10px;
 }
 
-#send[format="desktop"]{
+.button-send{
+    background: none;
+    padding: 0;
+    border: 0;
+    cursor: pointer;
+}
+
+.button-send[disabled]{
+    cursor: default;
+}
+
+.button-send[disabled] > #send{
+    filter: invert(0.45);
+}
+
+.button-send[format="desktop"]{
     position: relative;
     left: 90px;
+}
+
+.button-send[format="phone"],.button-send[format="tablet"]{
+    padding: 6px;
 }
 
 ::ng-deep .mat-form-field-underline {

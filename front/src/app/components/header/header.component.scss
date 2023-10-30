@@ -7,7 +7,7 @@ header{
     flex-direction: column-reverse;
 }
 
-.logo_div[format="desktop"][status="authentication"]{
+.logo_div[format="desktop"][logged="false"]{
     justify-content: flex-start;
     border-bottom: 1px solid;
 }
@@ -39,20 +39,20 @@ header{
     justify-content: space-between;
 }
 
-.logo_div[status="authentication"] > .nav-element{
+.logo_div[logged="false"] > .nav-element{
     display: none;
 }
 
-.logo_div[status="authentication"]{
+.logo_div[logged="false"]{
     justify-content: center;
     border-bottom: 0;
 }
 
-.nav-element.authentication{
+.nav-element.false{
     display: none;
 }
 
-.nav-element.authenticated{
+.nav-element.true{
     display: block;
 }
 
@@ -125,8 +125,12 @@ li:hover{
 }
 
 
-.back_div[status="authentication"]{
+app-header[ng-reflect-logged="false"] .back_div{
     display: block;
+}
+
+app-header[ng-reflect-logged="true"] .back_div{
+    display: none;
 }
 
 .back_div[format="phone"]{
@@ -141,14 +145,6 @@ li:hover{
 .back_div[format="desktop"]{
     padding-left: 8rem;
     padding-top: 1rem;
-}
-
-.back_div.authentication{
-    display: block;
-}
-
-.back_div.authenticated{
-    display: none;
 }
 
 .logo{
