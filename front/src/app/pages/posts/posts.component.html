@@ -9,18 +9,22 @@
     </div>
 
     <section class="posts">
-        <mat-card *ngFor="let i of Arr(num).fill(1)" class="posts__post">
+          <mat-card *ngFor="let post of posts" class="posts__post" (click)="navigateToPost(post.id)">
             <mat-card-header class="posts__post__header">
-              <mat-card-title class="posts__post__header__title">Titre de l'article</mat-card-title>
+              <mat-card-title class="posts__post__header__title">{{post?.title}}</mat-card-title>
               <mat-card-subtitle class="posts__post__header__subtitle">
-                <p class="posts__post__header__subtitle__date">Date</p>
-                <p class="posts__post__header__subtitle__author">Auteur</p>
+                <p class="posts__post__header__subtitle__date">{{post?.createdAt | date : 'medium' : '' : 'fr'}} </p>
+                <p class="posts__post__header__subtitle__author">{{post.author.name}}</p>
               </mat-card-subtitle>
             </mat-card-header>
             <mat-card-content class="posts__post__content">
-              <p>Content : Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus quod at amet tempore, porro reprehenderit nulla numquam explicabo quam enim esse placeat, eveniet exercitationem totam, nostrum incidunt? Suscipit, aperiam sed.</p>
+              <p class="posts__post__content__text">Content : {{(post.content.length > 225) ? (post.content | slice:0:225)+'...' : (post.content) }}</p>
             </mat-card-content>
           </mat-card>
+          <div *ngIf="posts?.length==0" class="no-posts">
+            <h2>Aucun article</h2>
+            <p>Soyez le premier à écrire un article.</p>
+          </div>
     </section>
 
 </main>
