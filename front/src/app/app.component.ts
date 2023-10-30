@@ -1,19 +1,22 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { SessionService } from './services/session/session.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit{
+export class AppComponent{
   
   showHeader: boolean = true;
   status!:string;
 
   currentBreakpoint:"desktop" | "tablet" | "phone" | undefined;
 
-  constructor(public router: Router){
+  logged:string = "false";
+
+  constructor(private router: Router, private sessionService: SessionService){
     this.router.events.subscribe((event:any) => {
       if(event instanceof NavigationEnd){
         if(["/welcome","/404"].includes(router.url)){
@@ -29,11 +32,14 @@ export class AppComponent implements OnInit{
         }
       }
     })
-    
+    this.sessionService.$isLogged().subscribe((data) => {
+      if(data){
+        this.logged = "true"
+      }else{
+        this.logged = "false"
+      }
+    })
   }
 
-  ngOnInit(): void {
-    
-  }
 
 }

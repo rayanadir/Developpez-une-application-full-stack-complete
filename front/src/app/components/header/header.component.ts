@@ -1,8 +1,9 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ResponsiveService } from 'src/app/services/responsive/responsive.service';
 import { NavigationEnd, Router } from '@angular/router';
+import { SessionService } from 'src/app/services/session/session.service';
 
 @Component({
   selector: 'app-header',
@@ -12,6 +13,7 @@ import { NavigationEnd, Router } from '@angular/router';
 export class HeaderComponent implements OnInit, OnDestroy {
 
   @Input() status = '';
+  @Input() logged = 'false';
 
   public currentBreakpoint:"desktop" | "tablet" | "phone" | undefined;
   public responsiveSubscription! : Subscription;
@@ -23,11 +25,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public authenticationRoutes = ["/login", "/register"];
   public authenticatedRoutes = ["/posts", "/topics", "/account", "/create", "/post"];
 
-
   constructor(
     public location: Location,
     public responsiveService: ResponsiveService,
-    public router: Router
+    public router: Router,
+    public sessionService: SessionService
     ) {
       this.router.events.subscribe((event:any) => {
         if(event instanceof NavigationEnd){
@@ -97,5 +99,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       document.querySelector('.account_circle')?.setAttribute('active', "true");
       document.getElementById(`nav_account_sidenav_icon`)?.setAttribute('active', "true");       
     }
+  }
+
+  public $isLogged(): Observable<boolean>{
+    return this.sessionService.$isLogged();
   }
 }

@@ -4,7 +4,7 @@
 <header class="header-element">
     <div class="logo_div">
         <img class="logo" src="../../../assets/logo_p6 1.png" alt="logo">
-        <nav class="nav-element" [class.authentication]="status=='authentication'" [class.authenticated]="status==='authenticated'">
+        <nav *ngIf="$isLogged() | async" class="nav-element" [class.authentication]="status=='authentication'" [class.authenticated]="status==='authenticated'">
             <ul [class.desktop]="currentBreakpoint=='desktop'" [class.phone_tablet]="currentBreakpoint=='tablet' || currentBreakpoint=='phone'">
                 <li (click)="click('posts')" id="nav_posts">Articles</li>
                 <li (click)="click('topics')" id="nav_topics">Thèmes</li>

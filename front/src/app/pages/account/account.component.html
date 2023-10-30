@@ -9,24 +9,34 @@
                 <mat-card-content class="account-content" fxLayout="column">
                     
                     <mat-form-field class="field">
-                        <input matInput type="text" value="Username">
+                        <input matInput type="text" value="{{user?.name}}">
                     </mat-form-field>
     
                     <mat-form-field class="field">
-                        <input matInput type="email" value="Email">
+                        <input matInput type="email" value="{{user?.email}}">
                     </mat-form-field>
 
-                    <mat-form-field class="field">
-                        <input matInput type="password" value="password">
+                    <mat-form-field class="field password account">
+                        <input matInput [type]="hide ? 'password' : 'text'" value="password">
+                        <button class="visibility" mat-icon-button matSuffix (click)="hide = !hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
                     </mat-form-field>
     
                 </mat-card-content>
     
                 <div class="buttons">
                     <button id="save" mat-raised-button>Sauvegarder</button>
-                    <button id="logout" mat-button color="warn">Se déconnecter</button>
+                    <button id="logout" (click)="logout()" mat-button color="warn">Se déconnecter</button>
                 </div>
-                
+                <div *ngIf="onError">
+                    <p class="error-message">Echec de la mise à jour du compte, verifiez que les champs suivants remplissent ces critères : </p>
+                    <ul>
+                        <li>Email : format d'adresse email valide</li>
+                        <li>Nom d'utilisateur : contient au moins 3 caractères</li>
+                        <li>Mot de passe : contient au moins 8 caractères, dont au moins une lettre majuscule/minuscule ainsi qu'un chiffre et un caractère spécial </li>
+                    </ul>
+                </div>
             </form>
         </mat-card>
     </section>
@@ -34,14 +44,12 @@
     <section class="subscriptions">
         <h1>Abonnements</h1>
         <div class="subscriptions__list">
-            <mat-card *ngFor="let i of Arr(num).fill(1)" class="subscriptions__subscription">
-                <mat-card-header class="subscriptions__subscription__header">
-                    <mat-card-title class="subscriptions__subscription__header__title">Titre du thème</mat-card-title>
-                </mat-card-header>
-                <mat-card-content class="subscriptions__subscription__content">
-                    <p>Description : Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam minus enim aperiam, officia blanditiis voluptas error qui voluptatem temporibus doloribus, excepturi atque nulla consectetur expedita rerum, nam eaque cum in.</p>
-                    <button class="subscriptions__subscription__content__button" mat-raised-button>Se désabonner</button>
-                </mat-card-content>
+            <mat-card *ngFor="let subscription of subscriptions" class="subscriptions__subscription">
+                <div class="subscriptions__subscription__title-text">
+                    <mat-card-title class="subscriptions__subscription__title-text__title">{{subscription.name}}</mat-card-title>
+                    <p>Description : {{subscription.description}}</p>
+                </div>
+                <button (click)="click(subscription.id)" class="subscriptions__subscription__button" mat-raised-button>{{subscription.isSubscribed ? "Se désabonner" : "S'abonner"}}</button>
             </mat-card>
         </div>
     </section>
