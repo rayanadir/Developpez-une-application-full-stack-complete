@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Post } from '../../interfaces/post.interface';
 import { Observable } from 'rxjs';
+import { PostRequest } from 'src/app/interfaces/postRequest.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class PostsService {
     return this.httpClient.get<Post>(`${this.pathService}/${id}`);
   }
 
-  public create(post: Post): Observable<Post>{
+  public create(post: PostRequest): Observable<Post>{
     return this.httpClient.post<Post>(this.pathService, post)
   }
 }

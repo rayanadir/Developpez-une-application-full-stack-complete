@@ -1,13 +1,11 @@
 <main class="main-topics">
     <section class="topics">
-        <mat-card *ngFor="let i of Arr(num).fill(1)" class="topics__topic">
-            <mat-card-header class="topics__topic__header">
-                <mat-card-title class="topics__topic__header__title">Titre du thème</mat-card-title>
-            </mat-card-header>
-            <mat-card-content class="topics__topic__content">
-                <p>Description : Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dicta porro nam eaque ab nobis aperiam, unde saepe minus eum optio nostrum illo ipsam culpa velit, architecto quis distinctio ducimus tenetur? </p>
-                <button mat-raised-button>S'abonner</button>
-            </mat-card-content>
+        <mat-card *ngFor="let topic of topics" class="topics__topic">
+            <div class="topics__topic__title-text">
+                <mat-card-title class="topics__topic__title-text__title">{{topic?.name}}</mat-card-title>
+                <p>Description : {{topic?.description}} </p>
+            </div>
+            <button mat-raised-button (click)="click(topic.id)">{{subscriptions?.includes(topic.id) ? "Se désabonner" : "S'abonner"}}</button>
         </mat-card>
     </section>
 </main>

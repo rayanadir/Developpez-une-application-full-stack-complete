@@ -104,6 +104,18 @@ input{
     font-weight: 600;
 }
 
+.error-message{
+    color: red;
+}
+
+.visibility{
+    display: flex;
+    justify-content: center;
+    background: none;
+    color: black;
+    font-size: x-large;
+}
+
 hr{
     width: 100%;
 }
@@ -125,26 +137,25 @@ hr{
         grid-template-columns: auto;
     }
     &__subscription{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
         background-color: #F5F5F5;
         border-radius: 5px;
-        &__header{
-            display: block;
+        &__title-text{
+            display: flex;
+            flex-direction: column;
             &__title{
                 font-weight: 700;
             }
         }
-        &__content{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 0 16px;
-            &__button{
+        &__button{
                 background-color: #7763C5;
                 color: white;
                 border-radius: 5px;
                 padding: 2px 16px;
                 font-weight: 600;
-            }
         }
     }
 }
