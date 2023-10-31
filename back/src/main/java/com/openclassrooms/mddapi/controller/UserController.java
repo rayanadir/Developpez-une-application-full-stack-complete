@@ -2,13 +2,18 @@ package com.openclassrooms.mddapi.controller;
 
 import com.openclassrooms.mddapi.dto.UserDTO;
 import com.openclassrooms.mddapi.model.User;
+import com.openclassrooms.mddapi.payload.response.MessageResponse;
+import com.openclassrooms.mddapi.service.PasswordValidatorService;
 import com.openclassrooms.mddapi.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 
 /**
  * Class that handles "User" controller
@@ -19,6 +24,12 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PasswordValidatorService passwordValidatorService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     /**
      * Gets user information
@@ -47,11 +58,23 @@ public class UserController {
      * @return ResponseEntity (OK or badRequest)
      */
     @CrossOrigin(origins = "http://localhost:4200")
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable("id") String id, @RequestBody UserDTO userDTO){
         try{
+            User initialUser = this.userService.findById(Long.parseLong(id));
+            if(initialUser==null){
+                return ResponseEntity.badRequest().build();
+            }
+            // Compare user email != request email (new email) but already taken email
+            if(!initialUser.getEmail().equals(userDTO.getEmail()) && this.userService.existsByEmail(userDTO.getEmail())){
+                return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already taken!"));
+            }
+            if(!this.passwordValidatorService.isValidPassword(userDTO.getPassword())){
+                return ResponseEntity.badRequest().body(new MessageResponse("Error: Invalid password format"));
+            }
+            User savedUser = new User(userDTO.getEmail(), userDTO.getName(), this.passwordEncoder.encode(userDTO.getPassword()), initialUser.getCreatedAt(), LocalDateTime.now());
             ModelMapper modelMapper = new ModelMapper();
-            User user = this.userService.update(Long.parseLong(id), modelMapper.map(userDTO, User.class));
+            User user = this.userService.update(Long.parseLong(id), savedUser);
             return ResponseEntity.ok().body(modelMapper.map(user, UserDTO.class));
         }catch (NumberFormatException e){
             return ResponseEntity.badRequest().build();
