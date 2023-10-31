@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { User } from 'src/app/interfaces/user.interface';
 import { ResponsiveService } from 'src/app/services/responsive/responsive.service';
 import { SessionService } from 'src/app/services/session/session.service';
@@ -22,32 +22,9 @@ export class AccountComponent implements OnInit, OnDestroy {
   public currentBreakpoint: "desktop" | "tablet" | "phone" | undefined;
   public responsiveSubscription!: Subscription;
   public user: User | undefined;
-  public accountForm: FormGroup | undefined;
+  public accountForm!: FormGroup;
   public onError = false;
-  public form = this.fb.group({
-    email: [
-      '',
-      [
-        Validators.required,
-        Validators.email
-      ]
-    ],
-    username: [
-      '',
-      [
-        Validators.required,
-        Validators.min(3),
-      ]
-    ],
-    password: [
-      '',
-      [
-        Validators.required,
-        Validators.min(8),
-        Validators.pattern(PASSWORD_PATTERN),
-      ]
-    ],
-  });
+  public onErrorEmail = false;
   public hide : boolean = true;
   public subscriptions: Topic[] | undefined;
   private id: string | undefined;
@@ -62,7 +39,8 @@ export class AccountComponent implements OnInit, OnDestroy {
     public fb: FormBuilder,
     public matSnackBar: MatSnackBar,
     public route: ActivatedRoute,
-    ) { }
+    ) {
+     }
 
   public ngOnInit(): void {
     /**
@@ -77,14 +55,12 @@ export class AccountComponent implements OnInit, OnDestroy {
       }
     });
     this.userService.detail(this.sessionService.sessionInformation!.id.toString()).subscribe((user: User) => {
-      this.user = user
-      console.log(this.user);
-      
+      this.user = user;
+      this.id = this.user.id?.toString();
+      this.initForm(user);
     });
     this.getSubscriptions()
     
-    
-    //this.id = this.user?.id?.toString();
   }
 
   public ngOnDestroy(): void {
@@ -98,10 +74,21 @@ export class AccountComponent implements OnInit, OnDestroy {
   }
 
   public submit(): void {
-    const accountRequest = this.form?.value as AccountRequest;
-    this.userService.update(""/*this.id!*/,accountRequest).subscribe({
-      next: (_:User) => {this.matSnackBar.open('Compte mis à jour !', 'Close', {duration: 5000}); this.onError=false},
-      error: () => this.onError=true,
+    const accountRequest = this.accountForm.value as AccountRequest;
+    this.userService.update(this.id!,accountRequest).subscribe({
+      next: (_:User) => {
+        this.matSnackBar.open('Compte mis à jour !', 'Close', {duration: 5000});
+        this.onError=false;
+        this.onErrorEmail=false;
+      },
+      error: (e) => {
+        if(e.error.message==="Error: Email is already taken!"){
+          this.onErrorEmail=true;
+        }else{
+          this.onError=true;
+          this.onErrorEmail=false;
+        }
+      },
     })
   }
 
@@ -125,5 +112,31 @@ export class AccountComponent implements OnInit, OnDestroy {
     });
   }
 
+  private initForm(user: User){
+    this.accountForm = this.fb.group({
+      email: [
+        user ? user.email : '',
+        [
+          Validators.required,
+          Validators.email
+        ]
+      ],
+      name: [
+        user ? user.name : '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+        ]
+      ],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.pattern(PASSWORD_PATTERN),
+        ]
+      ],
+    })
+  }
    
 }
