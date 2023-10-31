@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         Validators.email
       ],
     ],
-    username: [
+    name: [
       '',
       [
         Validators.required,
