@@ -5,19 +5,19 @@
             <mat-card-header class="card-header" fxLayoutAlign="center center">
                 <mat-card-title class="title">Profil utilisateur</mat-card-title>
             </mat-card-header>
-            <form class="account-form">
+            <form *ngIf="accountForm" class="account-form" [formGroup]="accountForm" (ngSubmit)="submit()">
                 <mat-card-content class="account-content" fxLayout="column">
                     
                     <mat-form-field class="field">
-                        <input matInput type="text" value="{{user?.name}}">
+                        <input matInput type="text" formControlName="name">
                     </mat-form-field>
     
                     <mat-form-field class="field">
-                        <input matInput type="email" value="{{user?.email}}">
+                        <input matInput type="email" formControlName="email">
                     </mat-form-field>
 
-                    <mat-form-field class="field password account">
-                        <input matInput [type]="hide ? 'password' : 'text'" value="password">
+                    <mat-form-field floatLabel="never" class="field password account">
+                        <input placeholder="Mot de passe" matInput [type]="hide ? 'password' : 'text'" formControlName="password">
                         <button class="visibility" mat-icon-button matSuffix (click)="hide = !hide">
                             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                         </button>
@@ -26,7 +26,7 @@
                 </mat-card-content>
     
                 <div class="buttons">
-                    <button id="save" mat-raised-button>Sauvegarder</button>
+                    <button id="save" type="submit" mat-raised-button [disabled]="accountForm.invalid">Sauvegarder</button>
                     <button id="logout" (click)="logout()" mat-button color="warn">Se déconnecter</button>
                 </div>
                 <div *ngIf="onError">
@@ -36,6 +36,9 @@
                         <li>Nom d'utilisateur : contient au moins 3 caractères</li>
                         <li>Mot de passe : contient au moins 8 caractères, dont au moins une lettre majuscule/minuscule ainsi qu'un chiffre et un caractère spécial </li>
                     </ul>
+                </div>
+                <div *ngIf="onErrorEmail">
+                    <p class="error-message">Attention, cette adresse email est déjà utilisée par un autre utilisateur !</p>
                 </div>
             </form>
         </mat-card>
