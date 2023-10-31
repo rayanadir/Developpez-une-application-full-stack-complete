@@ -96,6 +96,14 @@ app-header[ng-reflect-logged="true"] .nav-element{
     top: 9px;
 }
 
+.account .mat-form-field-label{
+    padding-left: 6px;
+}
+
+.mat-form-field.mat-focused .mat-form-field-label{
+    color: #a9a9a9;
+}
+
 #nav_topics[active="true"], #nav_posts[active="true"],.account_circle[active="true"],#nav_posts_sidenav[active="true"],#nav_topics_sidenav[active="true"], #nav_account_sidenav_icon[active="true"]{
     color: #6C5CCF;
 }
