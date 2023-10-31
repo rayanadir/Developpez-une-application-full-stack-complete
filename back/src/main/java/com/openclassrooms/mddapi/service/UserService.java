@@ -18,6 +18,14 @@ public class UserService implements UserDetailsService{
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * Finds a user by its id
+     * @param id user id
+     * @return User
+     */
+    public User findById(Long id){
+        return this.userRepository.findById(id).orElse(null);
+    }
 
     /**
      * Finds a user by its email
