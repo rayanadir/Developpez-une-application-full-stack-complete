@@ -10,7 +10,6 @@ import { SessionService } from './services/session/session.service';
 export class AppComponent{
   
   showHeader: boolean = true;
-  status!:string;
 
   currentBreakpoint:"desktop" | "tablet" | "phone" | undefined;
 
@@ -21,14 +20,8 @@ export class AppComponent{
       if(event instanceof NavigationEnd){
         if(["/welcome","/404"].includes(router.url)){
           this.showHeader=false;
-          this.status="welcome";
         }else{
           this.showHeader=true;
-          if(["/login","/register"].includes(router.url)){
-            this.status="authentication";
-          }else{
-            this.status="authenticated";
-          }
         }
       }
     })
