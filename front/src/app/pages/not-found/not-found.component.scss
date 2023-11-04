@@ -4,30 +4,32 @@
     align-items: center;
 }
 
-.not-found[format="phone"]{
-    padding-top: 5rem;
-}
-
-.not-found[format="tablet"]{
-    padding-top: 3rem;
-}
-
 .title{
     text-align: center;
 }
 
-.img[format="tablet"]{
-    width: 300px;
+// PHONE
+@media (max-width: 767px) {
+    .not-found{
+        padding-top: 5rem;
+    }
+    .img{
+        width: 200px;
+    }
+    .title{
+        font-size: 20px;
+    }
 }
 
-.img[format="phone"]{
-    width: 200px;
-}
-
-.title[format="tablet"]{
-    font-size: 20px;
-}
-
-.title[format="phone"]{
-    font-size: 20px;
+// TABLET
+@media(min-width:768px) and (max-width:1199px){
+    .not-found{
+        padding-top: 3rem;
+    }
+    .img{
+        width: 300px;
+    }
+    .title{
+        font-size: 20px;
+    }
 }

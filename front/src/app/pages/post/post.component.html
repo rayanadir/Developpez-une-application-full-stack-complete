@@ -1,5 +1,5 @@
 <main class="main-post">
-
+    <div class="loading" *ngIf="!post && !comments"><mat-spinner></mat-spinner></div>
     <section class="post">
         <mat-card class="card">
             <mat-card-header class="card-header" fxLayoutAlign="center center">
@@ -28,6 +28,10 @@
                 <p class="comments__comment__username">{{comment?.user?.name}}</p>
                 <p class="comments__comment__text">{{comment?.content}}</p>
             </article>
+            <div *ngIf="comments?.length==0" class="no-comments">
+                <h2>Aucun commentaire</h2>
+                <p>Soyez le premier à écrire un commentaire.</p>
+            </div>
         </div>
     </section>
 

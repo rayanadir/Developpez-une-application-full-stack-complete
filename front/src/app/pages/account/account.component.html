@@ -1,5 +1,5 @@
 <main class="main-account">
-
+    <div class="loading" *ngIf="!accountForm && !subscriptions"><mat-spinner></mat-spinner></div>
     <section class="user">
         <mat-card class="card">
             <mat-card-header class="card-header" fxLayoutAlign="center center">

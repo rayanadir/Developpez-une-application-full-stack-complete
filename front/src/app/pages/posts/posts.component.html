@@ -8,7 +8,9 @@
         </div>
     </div>
 
-    <section class="posts">
+    <div class="loading" *ngIf="!posts" ><mat-spinner></mat-spinner></div>
+    
+    <section class="posts">      
           <mat-card *ngFor="let post of posts" class="posts__post" (click)="navigateToPost(post.id)">
             <mat-card-header class="posts__post__header">
               <mat-card-title class="posts__post__header__title">{{post?.title}}</mat-card-title>

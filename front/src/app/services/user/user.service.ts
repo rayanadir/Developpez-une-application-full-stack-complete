@@ -12,7 +12,7 @@ export class UserService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public detail(id:string): Observable<User>{
+  public detail(): Observable<User>{
     return this.httpClient.get<User>(this.pathService);
   }
 

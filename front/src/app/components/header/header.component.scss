@@ -1,35 +1,13 @@
+@use '@angular/material' as mat;
+@include mat.core();
 header{
     display: flex;
     flex-direction: column;
 }
 
-.header-element[format="phone"]{
-    flex-direction: column-reverse;
-}
-
-.logo_div[format="desktop"][logged="false"]{
-    justify-content: flex-start;
-    border-bottom: 1px solid;
-}
-
 .logo_div{
     border-bottom: 1px solid;
     padding: 0 4rem;
-}
-
-.logo_div[format="desktop"]{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo_div[format="phone"],.logo_div[format="tablet"]{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid;
-    padding: 0 1rem;
 }
 
 .logo_div[showNavMenu="true"]{
@@ -56,31 +34,6 @@ header{
     display: block;
 }
 
-ul.desktop{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 0;
-    column-gap: 2rem;
-}
-
-ul.phone_tablet{
-    display: none;
-}
-
-.mat-icon.desktop{
-    display: none;
-}
-
-.mat-icon.phone_tablet{
-    display: flex;
-    background-color: transparent;
-    width: 32px;
-    height: 32px;
-    justify-content: center;
-    align-items: center;
-}
-
 ul{
     display: flex;
     flex-direction: row;
@@ -89,7 +42,7 @@ ul{
     column-gap: 2rem;
 }
 
-li{
+li, a{
     display: flex;
     align-self: center;
     list-style: none;
@@ -99,8 +52,12 @@ li{
     font-size: 32px;
 }
 
-li:hover{
+li:hover, a:hover{
     cursor: pointer;
+}
+
+#nav_posts{
+    color: #6C5CCF;
 }
 
 #nav_topics[active="true"], #nav_posts[active="true"],.account_circle[active="true"],#nav_posts_sidenav[active="true"],#nav_topics_sidenav[active="true"], #nav_account_sidenav_icon[active="true"]{
@@ -111,40 +68,12 @@ li:hover{
     color: black;
 }
 
-.mat-icon[format="desktop"]{
-    display: none;
-}
-
-.mat-icon[format="phone"], .mat-icon[format="tablet"]{
-    display: flex;
-    background-color: transparent;
-    width: 32px;
-    height: 32px;
-    justify-content: center;
-    align-items: center;
-}
-
-
 app-header[ng-reflect-logged="false"] .back_div{
     display: block;
 }
 
 app-header[ng-reflect-logged="true"] .back_div{
     display: none;
-}
-
-.back_div[format="phone"]{
-    padding: 1rem;
-}
-
-.back_div[format="tablet"]{
-    padding-left: 4rem;
-    padding-top: 1rem;
-}
-
-.back_div[format="desktop"]{
-    padding-left: 8rem;
-    padding-top: 1rem;
 }
 
 .logo{
@@ -161,13 +90,15 @@ app-header[ng-reflect-logged="true"] .back_div{
        causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
     flex:1    
 }
-  
+
+
   
 #snav{
     width: 62.5%;
     background-color: white;
     border: 1px solid;
     overflow: hidden;
+    box-shadow: 0px 0px 0 100vmax rgba(0,0,0,0.7);
 }
 
 .sidenav-list{
@@ -175,6 +106,7 @@ app-header[ng-reflect-logged="true"] .back_div{
     flex-direction: column-reverse;
     height: 100%;
     padding: 0;
+    overflow: hidden;
 }
 
 .sidenav-list > ul{
@@ -200,3 +132,94 @@ app-header[ng-reflect-logged="true"] .back_div{
 .icon_end{align-self: flex-end;}
 
 .icon_end > .account_circle{font-size: 64px;}
+
+// PHONE
+@media (max-width: 767px) {
+    .header-element{
+        flex-direction: column-reverse;
+    }
+    .logo_div{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid;
+        padding: 0 1rem;
+    }
+    .mat-icon{
+        display: flex;
+        background-color: transparent;
+        width: 32px;
+        height: 32px;
+        justify-content: center;
+        align-items: center;
+    }
+    .back_div{
+        padding: 1rem;
+    }
+    .sidenav-list > ul{
+        display: flex;
+    }
+    ul{
+        display: none;
+    }
+}
+
+// TABLET
+@media(min-width:768px) and (max-width:1199px){
+    .logo_div{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid;
+        padding: 0 1rem;
+    }
+    .mat-icon{
+        display: flex;
+        background-color: transparent;
+        width: 32px;
+        height: 32px;
+        justify-content: center;
+        align-items: center;
+    }
+    .back_div{
+        padding-left: 4rem;
+        padding-top: 1rem;
+    }
+    .sidenav-list > ul{
+        display: flex;
+    }
+    ul{
+        display: none;
+    }
+}
+
+// DESKTOP
+@media(min-width:1200px){
+    .logo_div[logged="false"]{
+        justify-content: flex-start;
+        border-bottom: 1px solid;
+    }
+    .logo_div{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .mat-icon{
+        display: none;
+    }
+    .back_div{
+        padding-left: 8rem;
+        padding-top: 1rem;
+    }
+    ul{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 0;
+        column-gap: 2rem;
+    }
+    #snav{
+        display: none;
+    }
+}

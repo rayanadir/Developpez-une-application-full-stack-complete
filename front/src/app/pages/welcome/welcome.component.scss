@@ -5,24 +5,6 @@ main{
     row-gap: 2rem;
 }
 
-.main-welcome[format="desktop"]{
-    padding-top: 200px;
-}
-
-.main-welcome[format="tablet"]{
-    padding-top: 100px;
-}
-
-.main-welcome[format="phone"]{
-    padding-top: 75px;
-}
-
-.logo{
-    &__img[format="phone"]{
-        max-width: 225px;
-    }
-}
-
 .auth{
     display: flex;
     &__button{
@@ -32,12 +14,40 @@ main{
     }
 }
 
-.auth[format="desktop"]{
-    flex-direction: row;
-    column-gap: 3rem;
+// PHONE
+@media (max-width: 767px) {
+    .main-welcome{
+        padding-top: 75px;
+    }
+    .logo{
+        &__img{
+            max-width: 225px;
+        }
+    }
+    .auth{
+        flex-direction: column;
+        row-gap: 3rem;
+    }
 }
 
-.auth[format="tablet"], .auth[format="phone"]{
-    flex-direction: column;
-    row-gap: 3rem;
+// TABLET
+@media(min-width:768px) and (max-width:1199px){
+    .main-welcome{
+        padding-top: 100px;
+    }
+    .auth{
+        flex-direction: column;
+        row-gap: 3rem;
+    }
+}
+
+// DESKTOP
+@media(min-width:1200px){
+    .main-welcome{
+        padding-top: 200px;
+    }
+    .auth{
+        flex-direction: row;
+        column-gap: 3rem;
+    }
 }

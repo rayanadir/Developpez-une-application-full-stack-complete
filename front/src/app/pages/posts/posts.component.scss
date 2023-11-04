@@ -6,18 +6,6 @@ main{
     padding: 2rem 0;
 }
 
-.main-posts[format="desktop"]{
-    width: 70%;
-}
-
-.main-posts[format="tablet"]{
-    width: 85%;
-}
-
-.main-posts[format="phone"]{
-    width: 95%;
-}
-
 button{
     background-color: #7763C5;
     color: white;
@@ -28,22 +16,6 @@ button{
 
 .create-filter{
     display: flex;
-}
-
-.create-filter[format="desktop"]{
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.create-filter[format="tablet"]{
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.create-filter[format="phone"]{
-    flex-direction: column;
-    align-items: center;
-    row-gap: 1rem;
 }
 
 .filter{
@@ -91,10 +63,45 @@ button{
     }
 }
 
-.posts[format="desktop"], .posts[format="tablet"]{
-    grid-template-columns: repeat(2,1fr);
+// PHONE
+@media (max-width: 767px) {
+    .main-posts{
+        width: 95%;
+    }
+    .create-filter{
+        flex-direction: column;
+        align-items: center;
+        row-gap: 1rem;
+    }
+    .posts{
+        grid-template-columns: repeat(1,1fr);
+    }
 }
 
-.posts[format="phone"]{
-    grid-template-columns: repeat(1,1fr);
+// TABLET
+@media(min-width:768px) and (max-width:1199px){
+    .main-posts{
+        width: 85%;
+    }
+    .create-filter{
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .posts{
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+
+// DESKTOP
+@media(min-width:1200px){
+    .main-posts{
+        width: 70%;
+    }
+    .create-filter{
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .posts{
+        grid-template-columns: repeat(2,1fr);
+    }
 }

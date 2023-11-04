@@ -1,30 +1,29 @@
 <div>
 
-
 <header class="header-element">
     <div class="logo_div">
         <img class="logo" src="../../../assets/logo_p6 1.png" alt="logo">
         <nav *ngIf="$isLogged() | async" class="nav-element">
-            <ul [class.desktop]="currentBreakpoint=='desktop'" [class.phone_tablet]="currentBreakpoint=='tablet' || currentBreakpoint=='phone'">
-                <li (click)="click('posts')" id="nav_posts">Articles</li>
-                <li (click)="click('topics')" id="nav_topics">Thèmes</li>
-                <li (click)="click('account')" id="nav_account">
+            <ul>
+                <a (click)="click('posts')" id="nav_posts">Articles</a>
+                <a (click)="click('topics')" id="nav_topics">Thèmes</a>
+                <a (click)="click('account')" id="nav_account">
                     <span class="material-symbols-outlined account_circle">
                         account_circle
                     </span>
-                </li>
+                </a>
             </ul>
-            <button (click)="sidenav.toggle()" [class.desktop]="currentBreakpoint=='desktop'" [class.phone_tablet]="currentBreakpoint=='tablet' || currentBreakpoint=='phone'" mat-icon-button class="mat-icon">
+            <button (click)="sidenav.toggle(); disableMain()" mat-icon-button class="mat-icon">
                 <mat-icon>menu</mat-icon>
             </button>
         </nav>
     </div>
     <div id="back_id" class="back_div">
         <img class="back" (click)="navigateBack()" src="../../../assets/Arrow 9.png" alt="back">
-    </div>
+    </div>    
 </header>
 
-<mat-sidenav-container id="sidenav-container" class="sidenav-container">
+<mat-sidenav-container id="sidenav-container" class="sidenav-container" [hasBackdrop]="true">
     <mat-sidenav
       #sidenav
       id="snav"
@@ -32,14 +31,15 @@
       fixedInViewport="true"
       [mode]="'over'"
       position="end"
+      (blur)="sidenav.toggle();test()"
     >
     <mat-nav-list class="sidenav-list">
         <ul>
             <div class="sidenav-list__posts-topics">
-                <li id="nav_posts_sidenav" class="sidenav-list__posts-topics__element" (click)="sidenav.toggle();click('posts')">Articles</li>
-                <li id="nav_topics_sidenav" class="sidenav-list__posts-topics__element" (click)="sidenav.toggle();click('topics')">Thèmes</li>
+                <li id="nav_posts_sidenav" class="sidenav-list__posts-topics__element" (click)="sidenav.toggle();click('posts'); sidenav.toggle()">Articles</li>
+                <li id="nav_topics_sidenav" class="sidenav-list__posts-topics__element" (click)="sidenav.toggle();click('topics'); sidenav.toggle()">Thèmes</li>
             </div>
-            <li id="nav_account_sidenav" (click)="sidenav.toggle();click('account')" class="icon_end"><span id="nav_account_sidenav_icon" class="material-symbols-outlined account_circle">account_circle</span></li>
+            <li id="nav_account_sidenav" (click)="sidenav.toggle();click('account'); sidenav.toggle()" class="icon_end"><span id="nav_account_sidenav_icon" class="material-symbols-outlined account_circle">account_circle</span></li>
         </ul>
     </mat-nav-list>
   </mat-sidenav>

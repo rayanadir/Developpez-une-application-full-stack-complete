@@ -10,44 +10,20 @@ import { TopicsService } from 'src/app/services/topics/topics.service';
   templateUrl: './topics.component.html',
   styleUrls: ['./topics.component.scss']
 })
-export class TopicsComponent implements OnInit, OnDestroy, AfterViewInit {
+export class TopicsComponent implements OnInit {
 
-  public currentBreakpoint:"desktop" | "tablet" | "phone" | undefined;
-  public responsiveSubscription! : Subscription;
   public topics: Topic[] | undefined;
   public subscriptions: number[] | undefined;
   public isSubscribed: boolean | undefined;
 
   constructor(
-    public responsiveService: ResponsiveService,
     public topicsService: TopicsService,
     public subscriptionsService: SubscriptionsService
     ) {  }
 
   public ngOnInit(): void {
-    /**
-     * Observe current window format : "desktop" | "tablet" | "phone" | undefined
-     */
-    this.responsiveSubscription = this.responsiveService.observeBreakpoint().subscribe(() => {
-      this.currentBreakpoint = this.responsiveService.breakpointChanged();
-      if(this.currentBreakpoint!=undefined){
-        document.querySelector('.main-topics')?.setAttribute('format', this.currentBreakpoint);
-        document.querySelector('.topics')?.setAttribute('format', this.currentBreakpoint);
-      }
-    });
     this.getSubscribedTopics();
     this.getTopics();    
-  }
-
-  public ngOnDestroy(): void {
-      this.responsiveSubscription.unsubscribe();
-  }
-
-  public ngAfterViewInit(): void {
-    if(this.currentBreakpoint!=undefined){
-      document.querySelector('.main-topics')?.setAttribute('format', this.currentBreakpoint);
-      document.querySelector('.topics')?.setAttribute('format', this.currentBreakpoint);
-    }
   }
 
   public getTopics(){

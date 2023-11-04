@@ -29,7 +29,9 @@ export class AppComponent{
       if(data){
         this.logged = "true"
       }else{
-        this.logged = "false"
+        this.logged = "false";
+        router.navigate(['/welcome']);
+        sessionService.sessionInformation=undefined
       }
     })
   }

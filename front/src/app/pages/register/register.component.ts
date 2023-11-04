@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { PASSWORD_PATTERN } from 'src/app/constants/password.validator';
 import { RegisterRequest } from 'src/app/interfaces/registerRequest.interface';
 import { SessionInformation } from 'src/app/interfaces/sessionInformation.interface';
@@ -14,10 +13,7 @@ import { SessionService } from 'src/app/services/session/session.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit, OnDestroy {
-
-  public currentBreakpoint:"desktop" | "tablet" | "phone" | undefined;
-  public responsiveSubscription! : Subscription;
+export class RegisterComponent implements OnInit {
 
   public onError : boolean = false;
 
@@ -56,27 +52,13 @@ export class RegisterComponent implements OnInit, OnDestroy {
     public router: Router,
     ) { }
 
-  ngOnInit(): void {
-    /**
-     * Observe current window format : "desktop" | "tablet" | "phone" | undefined
-     */
-    this.responsiveSubscription = this.responsiveService.observeBreakpoint().subscribe(() => {
-      this.currentBreakpoint = this.responsiveService.breakpointChanged();
-      if(this.currentBreakpoint!=undefined){
-        document.querySelector('.main-register')?.setAttribute('format', this.currentBreakpoint);
-        document.querySelector('.card-content')?.setAttribute('format', this.currentBreakpoint);
-      }
-    });
-  }
-
-  ngOnDestroy(): void {
-      this.responsiveSubscription.unsubscribe();
-  }
+  ngOnInit(): void { }
 
   public submit(): void {
     const registerRequest = this.form.value as RegisterRequest;
     this.authService.register(registerRequest).subscribe({
       next: (response: SessionInformation) => {
+        localStorage.setItem("token", response.token);
         this.sessionService.logIn(response);
         this.router.navigate(['/posts']);
       },

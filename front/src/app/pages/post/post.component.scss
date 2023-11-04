@@ -1,21 +1,8 @@
 main{
     display: flex;
     flex-direction: column;
-    //align-items: center;
     margin: auto;
     padding: 2rem 0;
-}
-
-.main-post[format="desktop"]{
-    width: 70%;
-}
-
-.main-post[format="tablet"]{
-    width: 85%;
-}
-
-.main-post[format="phone"]{
-    width: 100%;
 }
 
 .post{
@@ -42,21 +29,8 @@ main{
     align-items: center;
 }
 
-.card-header[format="desktop"]{
-    margin-left: -41px;
-}
-
-.card-header[format="phone"], .card-header[format="tablet"]{
-    column-gap: 2rem;
-}
-
 .div_back{
     display: flex;
-}
-
-.div_back[format="desktop"]{
-    position: relative;
-    right: 50px;
 }
 
 .back:hover{
@@ -76,19 +50,6 @@ main{
     margin-bottom: 0;
 }
 
-hr[format="desktop"], hr[format="tablet"]{
-    width: 100%;
-}
-
-hr[format="phone"]{
-    width: 95%;
-}
-
-.comments[format="phone"],.post[format="phone"]{
-    width: 90%;
-    margin: auto;
-}
-
 .comments{
     display: flex;
     flex-direction: column;
@@ -106,20 +67,6 @@ hr[format="phone"]{
             border-radius: 6px;
             padding: 8px 16px;
         }
-        &__text[format="desktop"],&__text[format="tablet"]{
-            background-color: #EEEEEE;
-        }
-        &__text[format="phone"]{
-            padding-bottom: 32px;
-        }
-    }
-    &__comment[format="desktop"], &__comment[format="tablet"]{
-        flex-direction: row;
-    }
-    &__comment[format="phone"]{
-        flex-direction: row-reverse;
-        align-items: flex-end;
-        justify-content: space-between;
     }
 }
 
@@ -153,19 +100,6 @@ hr[format="phone"]{
     }
 }
 
-.comment[format="phone"]{
-    width: 100%;
-}
-
-.comment[format="tablet"]{
-    width: inherit;
-}
-
-.comment[format="desktop"]{
-    width: inherit;
-    bottom: 10px;
-}
-
 .button-send{
     background: none;
     padding: 0;
@@ -181,15 +115,99 @@ hr[format="phone"]{
     filter: invert(0.45);
 }
 
-.button-send[format="desktop"]{
-    position: relative;
-    left: 90px;
-}
-
-.button-send[format="phone"],.button-send[format="tablet"]{
-    padding: 6px;
-}
-
 ::ng-deep .mat-form-field-underline {
     display: none;
+}
+
+// PHONE
+@media (max-width: 767px) {
+    .main-post{
+        width: 100%;
+    }
+    .card-header{
+        column-gap: 2rem;
+    }
+    hr{
+        width: 95%;
+    }
+    .comments,.post{
+        width: 90%;
+        margin: auto;
+    }
+    .comments{
+        &__comment{
+            flex-direction: row-reverse;
+            align-items: flex-end;
+            justify-content: space-between;
+            &__text{
+                padding-bottom: 32px;
+            }
+        }
+    }
+    .comment{
+        width: 100%;
+    }
+    .button-send{
+        padding: 6px;
+    }
+}
+
+// TABLET
+@media(min-width:768px) and (max-width:1199px){
+    .main-post{
+        width: 85%;
+    }
+    .card-header{
+        column-gap: 2rem;
+    }
+    hr{
+        width: 100%;
+    }
+    .comments{
+        &__comment{
+            flex-direction: row;
+            &__text{
+                background-color: #EEEEEE;
+            }
+        }
+    }
+    .comment{
+        width: inherit;
+    }
+    .button-send{
+        padding: 6px;
+    }
+}
+
+// DESKTOP
+@media(min-width:1200px){
+    .main-post{
+        width: 70%;
+    }
+    .card-header{
+        margin-left: -41px;
+    }
+    .div_back{
+        position: relative;
+        right: 50px;
+    }
+    hr{
+        width: 100%;
+    }
+    .comments{
+        &__comment{
+            flex-direction: row;
+            &__text{
+                background-color: #EEEEEE;
+            }
+        }
+    }
+    .comment{
+        width: inherit;
+        bottom: 10px;
+    }
+    .button-send{
+        position: relative;
+        left: 90px;
+    }
 }

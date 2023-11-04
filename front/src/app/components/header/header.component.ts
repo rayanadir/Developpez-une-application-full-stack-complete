@@ -1,7 +1,6 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Location } from '@angular/common';
-import { Observable, Subscription } from 'rxjs';
-import { ResponsiveService } from 'src/app/services/responsive/responsive.service';
+import { Observable } from 'rxjs';
 import { NavigationEnd, Router } from '@angular/router';
 import { SessionService } from 'src/app/services/session/session.service';
 
@@ -10,13 +9,10 @@ import { SessionService } from 'src/app/services/session/session.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent {
 
-  @Input() status = '';
   @Input() logged = 'false';
 
-  public currentBreakpoint:"desktop" | "tablet" | "phone" | undefined;
-  public responsiveSubscription! : Subscription;
   public screenHeight: any;
   public mainTagHeight: any;
   public showBackArrow: boolean=true;
@@ -27,7 +23,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     public location: Location,
-    public responsiveService: ResponsiveService,
     public router: Router,
     public sessionService: SessionService
     ) {
@@ -36,45 +31,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
           if(this.authenticationRoutes.includes(router.url)){
             this.showBackArrow=true;
             this.showNavMenu=false;
-            if(this.currentBreakpoint!=undefined){
-              document.querySelector('.back_div')?.setAttribute('format', this.currentBreakpoint);
-              document.querySelector('.logo_div')?.setAttribute('showNavMenu', "false");
-            }
+            document.querySelector('.logo_div')?.setAttribute('showNavMenu', "false");
           }else if(this.authenticatedRoutes.includes(router.url)){
             this.showBackArrow=false;
             this.showNavMenu=true;
-            if(this.currentBreakpoint!=undefined){
-              document.querySelector('ul')?.setAttribute('format', this.currentBreakpoint);
-              document.querySelector('.mat-icon')?.setAttribute('format', this.currentBreakpoint);
-              this.setActive(router.url.substring(1));
-            }
+            this.setActive(router.url.substring(1));
+          }else if(router.url.includes("/post")){
+            document.getElementById("nav_posts")?.setAttribute('active', "false");
+            document.getElementById("nav_posts_sidenav")?.setAttribute('active', "false");
           }
         }
       })
      }
-
-  public ngOnInit(): void {
-    /**
-     * Observe current window format : "desktop" | "tablet" | "phone" | undefined
-     */
-    this.responsiveSubscription = this.responsiveService.observeBreakpoint().subscribe(() => {
-      this.currentBreakpoint = this.responsiveService.breakpointChanged();
-      if(this.currentBreakpoint!=undefined){
-        document.querySelector('.header-element')?.setAttribute('format', this.currentBreakpoint);
-        document.querySelector('.logo_div')?.setAttribute('format', this.currentBreakpoint);
-        document.querySelector('.logo_div')?.setAttribute('status', this.status);
-        document.querySelector('.nav-element')?.setAttribute('status', this.status);
-        document.querySelector('.back_div')?.setAttribute('status', this.status);
-        document.querySelector('.back_div')?.setAttribute('format', this.currentBreakpoint);
-        document.querySelector('ul')?.setAttribute('format', this.currentBreakpoint);
-        document.querySelector('.mat-icon')?.setAttribute('format', this.currentBreakpoint);
-      }
-    });
-  }
-
-  public ngOnDestroy(): void {
-      this.responsiveSubscription.unsubscribe();
-  }
 
   public navigateBack(){
     this.router.navigate(["/welcome"]);
@@ -85,7 +53,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.navigate([`/${element}`]);  
   }
 
-  public setActive(element:string){
+  public setActive(element:string){    
     document.getElementById("nav_topics")?.setAttribute('active', "false");
     document.getElementById("nav_posts")?.setAttribute('active', "false");
     document.querySelector('.account_circle')?.setAttribute('active', "false");
@@ -103,5 +71,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   public $isLogged(): Observable<boolean>{
     return this.sessionService.$isLogged();
+  }
+
+  public disableMain(){
+    document.querySelector('.main-posts')?.setAttribute("click","none");
+    document.querySelector('.main-account')?.setAttribute("click","none");
+    document.querySelector('.main-post')?.setAttribute("click","none");
+    document.querySelector('.main-create')?.setAttribute("click","none");
+    document.querySelector('.main-topics')?.setAttribute("click","none")
+  }
+
+  
+  test() {
+    document.querySelector('.main-posts')?.removeAttribute("click");
+    document.querySelector('.main-account')?.removeAttribute("click");
+    document.querySelector('.main-post')?.removeAttribute("click");
+    document.querySelector('.main-create')?.removeAttribute("click");
+    document.querySelector('.main-topics')?.removeAttribute("click");
   }
 }

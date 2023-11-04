@@ -6,18 +6,6 @@ main{
     padding: 2rem 0;
 }
 
-.main-topics[format="desktop"]{
-    width: 70%;
-}
-
-.main-topics[format="tablet"]{
-    width: 85%;
-}
-
-.main-topics[format="phone"]{
-    width: 95%;
-}
-
 button{
     width: fit-content;
     background-color: #7763C5;
@@ -48,10 +36,32 @@ button{
     }
 }
 
-.topics[format="desktop"], .topics[format="tablet"]{
-    grid-template-columns: auto auto;
+// PHONE
+@media (max-width: 767px) {
+    .main-topics{
+        width: 95%;
+    }
+    .topics{
+        grid-template-columns: repeat(1,1fr);
+    }
 }
 
-.topics[format="phone"]{
-    grid-template-columns: auto;
+// TABLET
+@media(min-width:768px) and (max-width:1199px){
+    .main-topics{
+        width: 85%;
+    }
+    .topics{
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+
+// DESKTOP
+@media(min-width:1200px){
+    .main-topics{
+        width: 70%;
+    }
+    .topics{
+        grid-template-columns: repeat(2,1fr);
+    }
 }
