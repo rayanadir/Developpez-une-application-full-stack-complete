@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
     ]
   });
 
+  public loading : boolean= false;
 
   constructor(
     public fb: FormBuilder,
@@ -50,13 +51,18 @@ export class LoginComponent implements OnInit {
 
   public submit(): void {
     const loginRequest = this.form.value as LoginRequest;
+    this.loading=true;
     this.authService.login(loginRequest).subscribe({
       next: (response: SessionInformation) => {
+        this.loading=false;
         localStorage.setItem("token", response.token);
         this.sessionService.logIn(response);
         this.router.navigate(["/posts"]);
       },
-      error: () => this.onError = true,
+      error: () => {
+        this.onError = true;
+        this.loading=false;
+      },
     })
   }
 

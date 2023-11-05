@@ -37,7 +37,12 @@
                     <li>Mot de passe : contient au moins 8 caractères, dont au moins une lettre majuscule/minuscule ainsi qu'un chiffre et un caractère spécial </li>
                 </ul>
             </div>
-            
+            <div *ngIf="onErrorEmail">
+                <p class="error-message">Attention, cette adresse email est déjà utilisée par un autre utilisateur !</p>
+            </div>
+            <div *ngIf="loading" class="loading" style="margin-top: 1rem;">
+                <mat-spinner [diameter]="60"></mat-spinner>
+            </div>
         </form>
 
     </mat-card>

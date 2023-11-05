@@ -24,7 +24,7 @@ export class AccountComponent implements OnInit {
   public hide : boolean = true;
   public subscriptions: Topic[] | undefined;
   private id: string | undefined;
-  
+  public loading : boolean = false;
 
   constructor(
     public router: Router,
@@ -55,13 +55,16 @@ export class AccountComponent implements OnInit {
 
   public submit(): void {
     const accountRequest = this.accountForm.value as AccountRequest;
+    this.loading=true;
     this.userService.update(this.id!,accountRequest).subscribe({
       next: (_:User) => {
+        this.loading=false;
         this.matSnackBar.open('Compte mis à jour !', 'Close', {duration: 5000});
         this.onError=false;
         this.onErrorEmail=false;
       },
       error: (e) => {
+        this.loading=false
         if(e.error.message==="Error: Email is already taken!"){
           this.onErrorEmail=true;
         }else{

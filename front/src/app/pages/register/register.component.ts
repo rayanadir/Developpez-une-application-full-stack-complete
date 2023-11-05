@@ -16,6 +16,7 @@ import { SessionService } from 'src/app/services/session/session.service';
 export class RegisterComponent implements OnInit {
 
   public onError : boolean = false;
+  public onErrorEmail = false;
 
   public form = this.fb.group({
     email: [
@@ -29,7 +30,7 @@ export class RegisterComponent implements OnInit {
       '',
       [
         Validators.required,
-        Validators.min(3),
+        Validators.minLength(3),
       ]
     ],
     password: [
@@ -43,6 +44,7 @@ export class RegisterComponent implements OnInit {
   })
 
   public hide : boolean = true;
+  public loading : boolean = false;
 
   constructor(
     public responsiveService: ResponsiveService,
@@ -56,13 +58,23 @@ export class RegisterComponent implements OnInit {
 
   public submit(): void {
     const registerRequest = this.form.value as RegisterRequest;
+    this.loading=true;
     this.authService.register(registerRequest).subscribe({
       next: (response: SessionInformation) => {
+        this.loading=false;
         localStorage.setItem("token", response.token);
         this.sessionService.logIn(response);
         this.router.navigate(['/posts']);
       },
-      error: () => this.onError = true, 
+      error: (e) => {
+        this.loading=false
+        if(e.error.message==="Error: Email is already taken!"){
+          this.onErrorEmail=true;
+        }else{
+          this.onError = true;
+          this.onErrorEmail=false;
+        }
+      }, 
     })
   }
 

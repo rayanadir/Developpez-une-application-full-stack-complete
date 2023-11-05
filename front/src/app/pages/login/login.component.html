@@ -25,6 +25,9 @@
 
             <button mat-raised-button type="submit" [disabled]="form.invalid">Se connecter</button>
             <p *ngIf="onError">Erreur: email ou mot de passe incorrect !</p>
+            <div *ngIf="loading" class="loading" style="margin-top: 1rem;">
+                <mat-spinner [diameter]="60"></mat-spinner>
+            </div>
         </form>
 
     </mat-card>
