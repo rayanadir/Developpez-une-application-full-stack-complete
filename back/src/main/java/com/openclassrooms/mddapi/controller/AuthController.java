@@ -75,7 +75,7 @@ public class AuthController {
         if(!this.passwordValidatorService.isValidPassword(signupRequest.getPassword())){
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Invalid password format"));
         }
-        User user = new User(signupRequest.getEmail(), signupRequest.getUsername(), this.passwordEncoder.encode(signupRequest.getPassword()), LocalDateTime.now(), LocalDateTime.now());
+        User user = new User(signupRequest.getEmail(), signupRequest.getName(), this.passwordEncoder.encode(signupRequest.getPassword()), LocalDateTime.now(), LocalDateTime.now());
         this.userService.createUser(user);
         Authentication authentication = this.authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(signupRequest.getEmail(), signupRequest.getPassword())
@@ -84,7 +84,7 @@ public class AuthController {
         String token = this.jwtUtils.generateJwtToken(authentication);
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         Long userId = this.userService.findByEmail(userDetails.getUsername()).getId();
-        return ResponseEntity.ok(new JwtResponse(token,userId,signupRequest.getUsername(), user.getEmail()));
+        return ResponseEntity.ok(new JwtResponse(token,userId,signupRequest.getName(), user.getEmail()));
     }
 
 }
