@@ -1,7 +1,11 @@
 package com.openclassrooms.mddapi.payload.response;
 
 import com.openclassrooms.mddapi.model.Topic;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class SubscriptionResponse {
 
     private String message;
@@ -12,19 +16,4 @@ public class SubscriptionResponse {
         this.topic=topic;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public Topic getTopic() {
-        return topic;
-    }
-
-    public void setTopic(Topic topic) {
-        this.topic = topic;
-    }
 }
