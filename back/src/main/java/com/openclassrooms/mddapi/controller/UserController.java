@@ -35,7 +35,6 @@ public class UserController {
      * Gets user information
      * @return ResponseEntity (OK or badRequest)
      */
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping()
     public ResponseEntity<?> me(){
         try{
@@ -57,7 +56,6 @@ public class UserController {
      * @param userDTO Object that contains user request
      * @return ResponseEntity (OK or badRequest)
      */
-    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable("id") String id, @RequestBody UserDTO userDTO){
         try{

@@ -26,7 +26,6 @@ public class TopicController {
 	 * Get all topics
 	 * @return ResponseEntity (OK or badRequest)
 	 */
-	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping()
 	public ResponseEntity<?> findAll() {
 		try{
@@ -49,7 +48,6 @@ public class TopicController {
 	 * @param id id of the topic
 	 * @return ResponseEntity (OK or badRequest)
 	 */
-	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/{id}")
 	public ResponseEntity<?> findById(@PathVariable("id") String id){
 		try{

@@ -41,7 +41,6 @@ public class CommentController {
      * @param commentDTO Object that contains comment request
      * @return ResponseEntity (OK)
      */
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping()
     public ResponseEntity<?> createComment(@RequestBody CommentDTO commentDTO){
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -64,7 +63,6 @@ public class CommentController {
      * @param postId id of the post
      * @return ResponseEntity (OK or badRequest)
      */
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/{postId}")
     public ResponseEntity<?> getAllCommentsByPostId(@PathVariable("postId") String postId){
         try{

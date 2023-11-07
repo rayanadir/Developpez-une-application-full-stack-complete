@@ -43,7 +43,6 @@ public class PostController {
      * Get all posts
      * @return ResponseEntity (OK)
      */
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping()
     public ResponseEntity<?> findAll(){
         List<Post> posts = this.postService.findAllPosts();
@@ -62,7 +61,6 @@ public class PostController {
      * @param id id of the post
      * @return ResponseEntity (OK or notFound or badRequest)
      */
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable("id") String id){
         try {
@@ -81,7 +79,6 @@ public class PostController {
      * @param postDTO Object that contains post request
      * @return ResponseEntity (OK)
      */
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping()
     public ResponseEntity<?> createPost(@RequestBody PostDTO postDTO){
         String email = SecurityContextHolder.getContext().getAuthentication().getName();

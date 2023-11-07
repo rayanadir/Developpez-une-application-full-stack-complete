@@ -39,7 +39,6 @@ public class SubscriptionController {
      * @param id of the topic
      * @return ResponseEntity (OK or badRequest)
      */
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/{id}")
     public ResponseEntity<?> clickButton(@PathVariable("id") String id){
         try{
@@ -67,7 +66,6 @@ public class SubscriptionController {
      * Get user subscriptions
      * @return ResponseEntity (OK or badRequest)
      */
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("")
     public ResponseEntity<?> findSubscriptionsByUser(){
         try{
