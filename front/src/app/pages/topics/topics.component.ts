@@ -1,7 +1,6 @@
-import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription} from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic.interface';
-import { ResponsiveService } from 'src/app/services/responsive/responsive.service';
 import { SubscriptionsService } from 'src/app/services/subscriptions/subscriptions.service';
 import { TopicsService } from 'src/app/services/topics/topics.service';
 
@@ -10,11 +9,14 @@ import { TopicsService } from 'src/app/services/topics/topics.service';
   templateUrl: './topics.component.html',
   styleUrls: ['./topics.component.scss']
 })
-export class TopicsComponent implements OnInit {
+export class TopicsComponent implements OnInit, OnDestroy {
 
   public topics: Topic[] | undefined;
   public subscriptions: number[] | undefined;
   public isSubscribed: boolean | undefined;
+  public topicsAllSubscription!: Subscription;
+  public subscriptionsAllSubscription!: Subscription;
+  public subscriptionsClickSubscription!: Subscription;
 
   constructor(
     public topicsService: TopicsService,
@@ -26,14 +28,20 @@ export class TopicsComponent implements OnInit {
     this.getTopics();    
   }
 
+  public ngOnDestroy(): void {
+    this.topicsAllSubscription.unsubscribe();
+    this.subscriptionsAllSubscription.unsubscribe();
+    this.subscriptionsClickSubscription?.unsubscribe();
+  }
+
   public getTopics(){
-    this.topicsService.all().subscribe((topics) => {
+    this.topicsAllSubscription = this.topicsService.all().subscribe((topics) => {
       this.topics=topics;
     })
   }
 
   public getSubscribedTopics() {
-    this.subscriptionsService.all().subscribe((subscriptions: Topic[]) => {
+    this.subscriptionsAllSubscription = this.subscriptionsService.all().subscribe((subscriptions: Topic[]) => {
       this.subscriptions=subscriptions.map((s) => {
         return s.id
       });
@@ -41,7 +49,7 @@ export class TopicsComponent implements OnInit {
   }
 
   public click(id:number) : void {
-    this.subscriptionsService.click(id).subscribe((res) => {
+    this.subscriptionsClickSubscription = this.subscriptionsService.click(id).subscribe((res) => {
       if(res.message === "Subscribed !" && this.subscriptions){
         let subscriptions = this.subscriptions;
         this.subscriptions= [...subscriptions, id];

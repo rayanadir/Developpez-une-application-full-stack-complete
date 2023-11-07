@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ResponsiveService } from 'src/app/services/responsive/responsive.service';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 
 @Component({
@@ -11,7 +10,7 @@ import { HeaderComponent } from 'src/app/components/header/header.component';
 export class WelcomeComponent implements OnInit {
   public header! : HeaderComponent
 
-  constructor(public router: Router, public responsiveService: ResponsiveService,) { }
+  constructor(public router: Router) { }
 
   public ngOnInit(): void { }
 

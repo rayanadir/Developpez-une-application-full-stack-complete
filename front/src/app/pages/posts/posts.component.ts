@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Post } from 'src/app/interfaces/post.interface';
 import { PostsService } from 'src/app/services/posts/posts.service';
 import { ResponsiveService } from 'src/app/services/responsive/responsive.service';
@@ -10,9 +11,10 @@ import { UserService } from 'src/app/services/user/user.service';
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.scss']
 })
-export class PostsComponent implements OnInit {
+export class PostsComponent implements OnInit, OnDestroy {
 
   public posts!: Post[];
+  public postsAllSubscription!: Subscription;
 
   constructor(
     public responsiveService: ResponsiveService,
@@ -25,6 +27,10 @@ export class PostsComponent implements OnInit {
     this.getPosts();
   }
 
+  public ngOnDestroy(): void {
+      this.postsAllSubscription.unsubscribe();
+  }
+
   public navigate() : void {
     this.router.navigate(['/create']);
   }
@@ -34,7 +40,7 @@ export class PostsComponent implements OnInit {
   }
 
   public getPosts() : void {
-    this.postsService.all().subscribe((posts: Post[]) => {
+    this.postsAllSubscription = this.postsService.all().subscribe((posts: Post[]) => {
       this.posts=posts.map((post: Post) => {
         return {
           ...post,

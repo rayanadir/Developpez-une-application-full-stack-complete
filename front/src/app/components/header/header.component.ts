@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { NavigationEnd, Router } from '@angular/router';
 import { SessionService } from 'src/app/services/session/session.service';
 
@@ -9,24 +9,24 @@ import { SessionService } from 'src/app/services/session/session.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnDestroy {
 
   @Input() logged = 'false';
 
-  public screenHeight: any;
-  public mainTagHeight: any;
   public showBackArrow: boolean=true;
   public showNavMenu: boolean=true;
 
-  public authenticationRoutes = ["/login", "/register"];
-  public authenticatedRoutes = ["/posts", "/topics", "/account", "/create", "/post"];
+  public authenticationRoutes: string[] = ["/login", "/register"];
+  public authenticatedRoutes: string[] = ["/posts", "/topics", "/account", "/create", "/post"];
+
+  public routerSubscription!: Subscription;
 
   constructor(
     public location: Location,
     public router: Router,
     public sessionService: SessionService
     ) {
-      this.router.events.subscribe((event:any) => {
+      this.routerSubscription = this.router.events.subscribe((event:any) => {
         if(event instanceof NavigationEnd){
           if(this.authenticationRoutes.includes(router.url)){
             this.showBackArrow=true;
@@ -44,16 +44,20 @@ export class HeaderComponent {
       })
      }
 
-  public navigateBack(){
+  public ngOnDestroy(): void {
+    this.routerSubscription.unsubscribe();    
+  }
+
+  public navigateBack() : void {
     this.router.navigate(["/welcome"]);
   }
 
-  public click(element:string){
+  public click(element:string) : void {
     this.setActive(element);
     this.router.navigate([`/${element}`]);  
   }
 
-  public setActive(element:string){    
+  public setActive(element:string) : void {    
     document.getElementById("nav_topics")?.setAttribute('active', "false");
     document.getElementById("nav_posts")?.setAttribute('active', "false");
     document.querySelector('.account_circle')?.setAttribute('active', "false");
@@ -73,7 +77,7 @@ export class HeaderComponent {
     return this.sessionService.$isLogged();
   }
 
-  public disableMain(){
+  public disableMain() : void {
     document.querySelector('.main-posts')?.setAttribute("click","none");
     document.querySelector('.main-account')?.setAttribute("click","none");
     document.querySelector('.main-post')?.setAttribute("click","none");
@@ -82,7 +86,7 @@ export class HeaderComponent {
   }
 
   
-  test() {
+  enableMain() : void {
     document.querySelector('.main-posts')?.removeAttribute("click");
     document.querySelector('.main-account')?.removeAttribute("click");
     document.querySelector('.main-post')?.removeAttribute("click");

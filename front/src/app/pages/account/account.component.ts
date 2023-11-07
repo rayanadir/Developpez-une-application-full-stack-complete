@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/interfaces/user.interface';
@@ -9,22 +9,27 @@ import { PASSWORD_PATTERN } from 'src/app/constants/password.validator';
 import { SubscriptionsService } from 'src/app/services/subscriptions/subscriptions.service';
 import { Topic } from 'src/app/interfaces/topic.interface';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.scss']
 })
-export class AccountComponent implements OnInit {
+export class AccountComponent implements OnInit, OnDestroy {
 
   public user: User | undefined;
   public accountForm!: FormGroup;
-  public onError = false;
-  public onErrorEmail = false;
+  public onError: boolean = false;
+  public onErrorEmail: boolean = false;
   public hide : boolean = true;
   public subscriptions: Topic[] | undefined;
-  private id: string | undefined;
+  public id: string | undefined;
   public loading : boolean = false;
+  public userDetailSubscription!: Subscription;
+  public userUpdateSubscription!: Subscription;
+  public userAllSubscription!: Subscription;
+  public userClickSubscription!: Subscription;
 
   constructor(
     public router: Router,
@@ -36,15 +41,22 @@ export class AccountComponent implements OnInit {
     public route: ActivatedRoute,
     ) {
      }
+  
 
   public ngOnInit(): void {
-    this.userService.detail().subscribe((user: User) => {
+    this.userDetailSubscription = this.userService.detail().subscribe((user: User) => {
       this.user = user;
       this.id = this.user.id?.toString();
       this.initForm(user);
     });
     this.getSubscriptions()
-    
+  }
+
+  public ngOnDestroy(): void {
+    this.userAllSubscription.unsubscribe();
+    this.userClickSubscription?.unsubscribe();
+    this.userDetailSubscription.unsubscribe();
+    this.userUpdateSubscription?.unsubscribe();
   }
 
   public logout(): void {
@@ -56,7 +68,7 @@ export class AccountComponent implements OnInit {
   public submit(): void {
     const accountRequest = this.accountForm.value as AccountRequest;
     this.loading=true;
-    this.userService.update(this.id!,accountRequest).subscribe({
+    this.userUpdateSubscription = this.userService.update(this.id!,accountRequest).subscribe({
       next: (_:User) => {
         this.loading=false;
         this.matSnackBar.open('Compte mis à jour !', 'Close', {duration: 5000});
@@ -76,7 +88,7 @@ export class AccountComponent implements OnInit {
   }
 
   public getSubscriptions() : void {
-    this.subscriptionsService.all().subscribe((subscriptions) => {
+    this.userAllSubscription = this.subscriptionsService.all().subscribe((subscriptions) => {
       this.subscriptions = subscriptions.map((subscription: Topic) => {
         subscription.isSubscribed=true;
         return subscription
@@ -85,7 +97,7 @@ export class AccountComponent implements OnInit {
   }
 
   public click(id: number) : void {
-    this.subscriptionsService.click(id).subscribe((res) => {
+    this.userClickSubscription = this.subscriptionsService.click(id).subscribe((res) => {
       let subscription = this.subscriptions?.find((s) =>  s.id === id);
       if(res.message === "Subscribed !" && subscription){
         subscription.isSubscribed=true;
@@ -95,7 +107,7 @@ export class AccountComponent implements OnInit {
     });
   }
 
-  private initForm(user: User){
+  private initForm(user: User) : void {
     this.accountForm = this.fb.group({
       email: [
         user ? user.email : '',

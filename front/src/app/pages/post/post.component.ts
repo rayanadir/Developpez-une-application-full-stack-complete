@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Comment } from 'src/app/interfaces/comment.interface';
@@ -14,10 +14,7 @@ import { UserService } from 'src/app/services/user/user.service';
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss']
 })
-export class PostComponent implements OnInit {
-
-  public currentBreakpoint:"desktop" | "tablet" | "phone" | undefined;
-  public responsiveSubscription! : Subscription;
+export class PostComponent implements OnInit, OnDestroy {
 
   public postId: string;
   public post: Post | undefined;
@@ -30,7 +27,9 @@ export class PostComponent implements OnInit {
     ]
   })
 
-  public commentForm: FormGroup | undefined
+  public postDetailSubscription!: Subscription;
+  public postAllSubscription!: Subscription;
+  public postCreateSubscription!: Subscription;
 
   constructor(
     public router: Router,
@@ -49,12 +48,18 @@ export class PostComponent implements OnInit {
     this.loadComments(this.postId);
   }
 
+  public ngOnDestroy(): void {
+      this.postAllSubscription.unsubscribe();
+      this.postCreateSubscription?.unsubscribe();
+      this.postDetailSubscription.unsubscribe();
+  }
+
   public back(): void {
     this.router.navigate(['/posts']);
   }
 
   public loadPost() : void {
-    this.postsService.detail(this.postId).subscribe({
+    this.postDetailSubscription = this.postsService.detail(this.postId).subscribe({
         next: (post: Post) => {
           this.post = {
             ...post,
@@ -69,7 +74,7 @@ export class PostComponent implements OnInit {
   }
 
   public loadComments(id: string) : void {
-    this.commentsService.all(id).subscribe((comments: Comment[]) => {
+    this.postAllSubscription = this.commentsService.all(id).subscribe((comments: Comment[]) => {
       this.comments=comments.sort((a,b) => {
         return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
       });
@@ -79,7 +84,7 @@ export class PostComponent implements OnInit {
   public sendComment() : void {
     let commentRequest = this.form.value as Comment;
     commentRequest.postId=parseInt(this.postId);
-    this.commentsService.create(commentRequest).subscribe((comment: Comment) => {
+    this.postCreateSubscription = this.commentsService.create(commentRequest).subscribe((comment: Comment) => {
       this.comments= [...this.comments, comment]
     });
     this.form.reset();

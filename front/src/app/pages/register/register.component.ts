@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { PASSWORD_PATTERN } from 'src/app/constants/password.validator';
 import { RegisterRequest } from 'src/app/interfaces/registerRequest.interface';
 import { SessionInformation } from 'src/app/interfaces/sessionInformation.interface';
@@ -13,12 +14,12 @@ import { SessionService } from 'src/app/services/session/session.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
 
   public onError : boolean = false;
-  public onErrorEmail = false;
+  public onErrorEmail: boolean = false;
 
-  public form = this.fb.group({
+  public form: FormGroup = this.fb.group({
     email: [
       '',
       [
@@ -45,6 +46,7 @@ export class RegisterComponent implements OnInit {
 
   public hide : boolean = true;
   public loading : boolean = false;
+  public registerSubscription!: Subscription
 
   constructor(
     public responsiveService: ResponsiveService,
@@ -54,12 +56,16 @@ export class RegisterComponent implements OnInit {
     public router: Router,
     ) { }
 
-  ngOnInit(): void { }
+  public ngOnInit(): void { }
+
+  public ngOnDestroy(): void {
+      this.registerSubscription?.unsubscribe();
+  }
 
   public submit(): void {
     const registerRequest = this.form.value as RegisterRequest;
     this.loading=true;
-    this.authService.register(registerRequest).subscribe({
+    this.registerSubscription = this.authService.register(registerRequest).subscribe({
       next: (response: SessionInformation) => {
         this.loading=false;
         localStorage.setItem("token", response.token);

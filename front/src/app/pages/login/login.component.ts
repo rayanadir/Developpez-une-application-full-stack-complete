@@ -1,23 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginRequest } from 'src/app/interfaces/loginRequest.interface';
 import { SessionInformation } from 'src/app/interfaces/sessionInformation.interface';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { SessionService } from 'src/app/services/session/session.service';
 import { PASSWORD_PATTERN } from 'src/app/constants/password.validator';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   public hide : boolean = true;
   public onError : boolean = false;
 
-  public form = this.fb.group({
+  public form : FormGroup = this.fb.group({
     email: [
       'rayan@rayan.com',
       [
@@ -36,6 +37,7 @@ export class LoginComponent implements OnInit {
   });
 
   public loading : boolean= false;
+  public loginSubscription!: Subscription
 
   constructor(
     public fb: FormBuilder,
@@ -45,14 +47,17 @@ export class LoginComponent implements OnInit {
     ) { }
 
   public ngOnInit(): void {
-
+    
   }
 
+  public ngOnDestroy(): void {
+    this.loginSubscription?.unsubscribe();    
+  }
 
   public submit(): void {
     const loginRequest = this.form.value as LoginRequest;
     this.loading=true;
-    this.authService.login(loginRequest).subscribe({
+    this.loginSubscription = this.authService.login(loginRequest).subscribe({
       next: (response: SessionInformation) => {
         this.loading=false;
         localStorage.setItem("token", response.token);
