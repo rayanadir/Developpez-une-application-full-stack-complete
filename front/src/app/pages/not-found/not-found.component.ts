@@ -14,6 +14,7 @@ export class NotFoundComponent implements OnInit {
   }
 
   public navigateBack() : void {
+    // will redirect to '/posts' if logged, else to '/welcome' due to routing configuration
     this.router.navigate(['/posts']);
   }
 
