@@ -9,11 +9,8 @@ import { SessionService } from './services/session/session.service';
 })
 export class AppComponent{
   
-  showHeader: boolean = true;
-
-  currentBreakpoint:"desktop" | "tablet" | "phone" | undefined;
-
-  logged:string = "false";
+  public showHeader: boolean = true;
+  public logged:string = "false";
 
   constructor(private router: Router, private sessionService: SessionService){
     this.router.events.subscribe((event:any) => {
@@ -30,7 +27,6 @@ export class AppComponent{
         this.logged = "true"
       }else{
         this.logged = "false";
-        router.navigate(['/welcome']);
         sessionService.sessionInformation=undefined
       }
     })
