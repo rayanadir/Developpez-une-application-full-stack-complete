@@ -19,14 +19,6 @@ export class JwtInterceptor implements HttpInterceptor{
                 
             })
         }
-        return next.handle(request).pipe(catchError(err => {
-            if([401,403].includes(err.status)){
-                this.matSnackBar.open('Session expirée, veuillez vous reconnecter', 'Fermer', {duration: 10000});
-                localStorage.removeItem('token');
-                this.router.navigate(['/welcome']);
-                this.sessionService.logOut();
-            }
-            return throwError(() => err)
-        }));
+        return next.handle(request);
     }
 }
