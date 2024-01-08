@@ -18,7 +18,7 @@
 
                     <mat-form-field floatLabel="never" class="field password account">
                         <input placeholder="Mot de passe" matInput [type]="hide ? 'password' : 'text'" formControlName="password">
-                        <button class="visibility" mat-icon-button matSuffix (click)="hide = !hide">
+                        <button class="visibility" type="button" mat-icon-button matSuffix (click)="hide = !hide">
                             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                         </button>
                     </mat-form-field>
